@@ -21,7 +21,6 @@ body {
   font-size: 0.9rem;
   margin: 0;
   -webkit-font-smoothing: antialiased;
-  text-transform: uppercase;
   letter-spacing: 0.02em;
   color: black;
   transition: color 4.8s cubic-bezier(0.25, 1, 0.5, 1);
@@ -44,6 +43,7 @@ a {
   font-size: 1.2rem;
   line-height: 1.1;
   z-index: 2;
+  text-transform: uppercase;
 }
 .name { font-weight: bold; }
 
@@ -61,6 +61,7 @@ a {
   flex-direction: column;
   line-height: 1.1;
   z-index: 2;
+  text-transform: uppercase;
 }
 
 .bottom-projects a {
@@ -69,28 +70,21 @@ a {
   font-weight: bold;
   opacity: 0.25;
   transition: opacity 0.4s ease;
+  cursor: pointer;
 }
 .bottom-projects a.active-project { opacity: 1; }
 
-/* Hide other project names when hovering (image OR project name) */
-.bottom-projects.is-hovering a {
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-.bottom-projects.is-hovering a.active-project,
-.bottom-projects.is-hovering a:hover {
-  opacity: 1;
-}
-
 .image-description {
-  position: absolute;
-  top: 675px;
-  font-size: 0.85rem;
+  position: fixed;
+  bottom: 20px;
+  left: 380px; /* adjust if needed */
+  width: 520px;
+  max-width: calc(100vw - 420px);
+  font-size: 1rem;
   text-align: left;
-  opacity: 0;
   transition: opacity 0.4s ease;
-  line-height: 1.5;
   z-index: 2;
+  color: grey; /* below image layer (3), above background */
 }
 
 /* PICTURE LAYER */
@@ -129,9 +123,7 @@ img {
   transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ========================= */
 /* EMOJI RAIN */
-/* ========================= */
 .rainbow-snow-container {
   position: fixed;
   inset: 0;
@@ -159,7 +151,6 @@ img {
   100% { transform: translate3d(0,110vh,0) rotate(360deg); }
 }
 
-/* Text disappears during emoji mode */
 body.rainbow-active .info-box,
 body.rainbow-active .bottom-projects,
 body.rainbow-active .image-description {
@@ -178,26 +169,27 @@ body.rainbow-active .image-description {
 
 <div class="container-wrapper">
   <div class="container" id="stage">
-    <!-- 12 slides (indexes 0–11). src starts empty; JS assigns safely -->
-    <div class="thing"><img src="" alt=""></div> <!-- 0 Nazar is -->
-    <div class="thing"><img src="" alt=""></div> <!-- 1 Kitty -->
-    <div class="thing"><img src="" alt=""></div> <!-- 2 OASE -->
-    <div class="thing"><img src="" alt=""></div> <!-- 3 Water Reflection -->
-    <div class="thing"><img src="" alt=""></div> <!-- 4 Gun/Tongue -->
-    <div class="thing"><img src="" alt=""></div> <!-- 5 Protest Sign -->
-    <div class="thing"><img src="" alt=""></div> <!-- 6 Fragments -->
-    <div class="thing"><img src="" alt=""></div> <!-- 7 CEO -->
-    <div class="thing"><img src="" alt=""></div> <!-- 8 !?... -->
-    <div class="thing"><img src="" alt=""></div> <!-- 9 Kimish -->
-    <div class="thing"><img src="" alt=""></div> <!-- 10 Calendar -->
-    <div class="thing"><img src="" alt=""></div> <!-- 11 Kitchen pleasures -->
 
-    <div class="image-description" id="desc"></div>
+    <!-- Slides -->
+    <div class="thing"><img src="" alt=""></div>
+    <div class="thing"><img src="" alt=""></div>
+    <div class="thing"><img src="" alt=""></div>
+    <div class="thing"><img src="" alt=""></div>
+    <div class="thing"><img src="" alt=""></div>
+    <div class="thing"><img src="" alt=""></div>
+    <div class="thing"><img src="" alt=""></div>
+    <div class="thing"><img src="" alt=""></div>
+    <div class="thing"><img src="" alt=""></div>
+    <div class="thing"><img src="" alt=""></div>
+    <div class="thing"><img src="" alt=""></div>
+    <div class="thing"><img src="" alt=""></div>
   </div>
 </div>
 
+<div class="image-description" id="desc"></div>
+
 <div class="bottom-projects">
-  <a data-index="0">Nazar    is, 2025</a>
+  <a data-index="0">Nazar is, 2025</a>
   <a data-index="1">My name is Kitty, 2025</a>
   <a data-index="2">OASE 88, 2025</a>
   <a data-index="3">Water Reflection, 2024</a>
@@ -216,9 +208,6 @@ body.rainbow-active .image-description {
 <script>
 var slides = document.getElementsByClassName("thing");
 var desc = document.getElementById("desc");
-var bottomProjects = document.querySelector(".bottom-projects");
-
-var captionRatio = 0.6;
 
 var fastSpeed = 1200;
 var slowSpeed = 1200;
@@ -227,12 +216,11 @@ var targetSpeed = fastSpeed;
 var easing = 0.03;
 
 var isHovering = false;
+var isLocked = false;
+var lockedIndex = 0;
 var currentIndex = 0;
 
-/* ✅ Safe URL:
-   - keeps "/" so folders work (gun/tongue1.webp)
-   - forces "?" and "#" to be encoded so weird filenames still load
-*/
+/* SAFE URL */
 function safeSrc(path) {
   return encodeURI(path)
     .replace(/\?/g, "%3F")
@@ -245,21 +233,23 @@ function rangeWebp(prefix, start, end) {
   return arr;
 }
 
+/* IMAGE SETS */
 var projectImagesByIndex = [
-  ["./Nazaris.webp"],                    // 0 Nazar is
-  rangeWebp("./mynameiskitty", 1, 5),     // 1 Kitty
-  rangeWebp("./oase", 1, 16),             // 2 OASE
-  rangeWebp("./waterreflection", 1, 7),   // 3 Water Reflection
-  rangeWebp("./gun/tongue", 1, 9),        // 4 Gun/Tongue -> gun/tongue1.webp ...
-  ["./protestsign.webp"],                // 5 Protest Sign
-  rangeWebp("./fragments", 1, 9),         // 6 Fragments
-  rangeWebp("./americantech", 1, 5),      // 7 CEO
-  rangeWebp("./!?...", 1, 15),            // 8 !?... -> !?...1.webp etc (with literal "?")
-  rangeWebp("./Kimish", 1, 14),           // 9 Kimish
-  rangeWebp("./calendar", 1, 6),          // 10 Calendar
-  rangeWebp("./kitchenpleasures", 1, 7)   // 11 Kitchen pleasures
+  ["./Nazaris.webp"],
+  rangeWebp("./mynameiskitty", 1, 5),
+  rangeWebp("./oase", 1, 16),
+  rangeWebp("./waterreflection", 1, 7),
+  rangeWebp("./gun/tongue", 1, 9),
+  ["./protestsign.webp"],
+  rangeWebp("./fragments", 1, 9),
+  rangeWebp("./americantech", 1, 5),
+  rangeWebp("./!?...", 1, 15),
+  rangeWebp("./Kimish", 1, 14),
+  rangeWebp("./calendar", 1, 6),
+  rangeWebp("./kitchenpleasures", 1, 7)
 ];
 
+/* DESCRIPTIONS */
 var descriptions = [
   "A self-portrait project that treats identity as a constructed statement. A direct and personal typography-image relation where the self becomes both subject and medium.",
   "A character/identity exercise built through repetition and variation. A sequence of images that shifts tone from intimate to performative, keeping the persona unstable.",
@@ -267,30 +257,24 @@ var descriptions = [
   "Light as a temporary material. Reflections become typography-like marks: unstable, passing, and dependent on angle, time, and attention.",
   "Language made physical. Mouth + tool. The images document the tension between control and spill: gesture, saliva, impact, and the body as printer.",
   "A single-image statement piece — direct, public, and fast. A protest sign treated as a graphic object with urgency baked into its form.",
-  "A book about fragmented bodies — pieces lost or cut from sculptures and drawings. The publication mirrors absence through construction: large sheets folded and cut into A7-sized signatures. Images sourced from the Rijksmuseum archive.",
-  "A short series about corporate myth, tech optimism, and the aesthetics of authority. American-tech imagery reframed as a designed fiction.",
-  "Punctuation as image-language. The work treats symbols as emotional architecture: interruption, overload, noise, and reaction becoming the message itself.",
-  "An exploration of identity as a curated product. By restaging Kim Kardashian’s “Selfish” with my own selfies, the project examines how online personas are constructed, copied, and circulated.",
-  "A calendar as structure and constraint: time turned into layout. The images move through a grid logic where repetition becomes narrative.",
-  "A zine exploring tension between pleasure, embarrassment, and control. Domestic kitchen tools reimagined as instruments of intimacy and transgression."
+  "A book about fragmented bodies — pieces lost or cut from sculptures and drawings. The publication mirrors absence through construction.",
+  "A short series about corporate myth, tech optimism, and the aesthetics of authority.",
+  "Punctuation as image-language. The work treats symbols as emotional architecture.",
+  "An exploration of identity as a curated product.",
+  "A calendar as structure and constraint.",
+  "A zine exploring tension between pleasure, embarrassment, and control."
 ];
 
 function showSlide(index){
   for(var i=0;i<slides.length;i++) slides[i].classList.remove("active");
-  if (slides[index]) slides[index].classList.add("active");
+  slides[index].classList.add("active");
 }
 
 function updateBottomHighlight(index){
-  var links = document.querySelectorAll(".bottom-projects a");
-  links.forEach(l => l.classList.remove("active-project"));
-  if (links[index]) links[index].classList.add("active-project");
-}
-
-function positionCaptionForImage(imgElem) {
-  var imageWidth = imgElem.offsetWidth;
-  var capWidth = imageWidth * captionRatio;
-  desc.style.width = capWidth + "px";
-  desc.style.left = imgElem.offsetLeft + "px";
+  document.querySelectorAll(".bottom-projects a")
+    .forEach(l => l.classList.remove("active-project"));
+  document.querySelectorAll(".bottom-projects a")[index]
+    .classList.add("active-project");
 }
 
 function clearAllMiniSlides(){
@@ -300,97 +284,137 @@ function clearAllMiniSlides(){
   }
 }
 
-function activateProject(index){
-  if(!slides[index]) return;
-
-  clearAllMiniSlides();
-  currentIndex = index;
-  showSlide(index);
-  updateBottomHighlight(index);
-
-  var slide = slides[index];
-  var img = slide.querySelector("img");
-
-  img.style.transform = "scale(1.04) translateY(-6px)";
-
-  desc.innerHTML = descriptions[index] || "";
-  desc.style.opacity = "1";
-  positionCaptionForImage(img);
-
-  isHovering = true;
-  targetSpeed = slowSpeed;
-
-  var imgs = projectImagesByIndex[index] || [];
-  if (!imgs.length) return;
-
+/* MINI SLIDESHOW */
+function startMiniSlideshow(slide, img, index){
+  var imgs = projectImagesByIndex[index];
   img.src = safeSrc(imgs[0]);
-  positionCaptionForImage(img);
 
   if (imgs.length > 1) {
     var miniIndex = 0;
     slide.miniInterval = setInterval(function(){
       miniIndex = (miniIndex + 1) % imgs.length;
       img.src = safeSrc(imgs[miniIndex]);
-      positionCaptionForImage(img);
     }, 1200);
   }
 }
 
-function deactivateProject(){
-  clearAllMiniSlides();
-  desc.style.opacity = "0";
-  isHovering = false;
-  targetSpeed = fastSpeed;
+/* HOVER MODE */
+function activateProject(index){
+  if(!slides[index]) return;
 
-  var active = slides[currentIndex] && slides[currentIndex].querySelector("img");
-  if(active){
-    active.style.transform = "scale(1) translateY(0)";
-  }
+  clearAllMiniSlides();
+  currentIndex = index;
+
+  showSlide(index);
+  updateBottomHighlight(index);
+
+  isHovering = true;
+  targetSpeed = slowSpeed;
+
+  desc.style.opacity = "0"; // no description on hover
+
+  var slide = slides[index];
+  var img = slide.querySelector("img");
+
+  startMiniSlideshow(slide, img, index);
 }
 
-/* Hover on IMAGE */
+/* LOCK MODE */
+function selectProject(index){
+  clearAllMiniSlides();
+
+  isLocked = true;
+  lockedIndex = index;
+  currentIndex = index;
+
+  showSlide(index);
+  updateBottomHighlight(index);
+
+  desc.innerHTML = descriptions[index];
+  desc.style.opacity = "1";
+
+  var slide = slides[index];
+  var img = slide.querySelector("img");
+
+  startMiniSlideshow(slide, img, index);
+}
+
+/* IMAGE HOVER */
 for(let i=0;i<slides.length;i++){
   slides[i].addEventListener("mouseenter", () => {
-    bottomProjects.classList.add("is-hovering");
+    if(isLocked) return;
     activateProject(i);
   });
+
   slides[i].addEventListener("mouseleave", () => {
-    bottomProjects.classList.remove("is-hovering");
-    deactivateProject();
+    if(isLocked) return;
+    clearAllMiniSlides();
+    desc.style.opacity = "0";
+    isHovering = false;
+    targetSpeed = fastSpeed;
   });
 }
 
-/* Hover on PROJECT NAME */
+/* PROJECT NAME EVENTS */
 document.querySelectorAll(".bottom-projects a").forEach(link=>{
+
   link.addEventListener("mouseenter", function(){
-    bottomProjects.classList.add("is-hovering");
+    if(isLocked) return;
     activateProject(parseInt(this.dataset.index, 10));
   });
+
   link.addEventListener("mouseleave", function(){
-    bottomProjects.classList.remove("is-hovering");
-    deactivateProject();
+    if(isLocked) return;
+    clearAllMiniSlides();
+    desc.style.opacity = "0";
+    isHovering = false;
+    targetSpeed = fastSpeed;
   });
+
+  link.addEventListener("click", function(e){
+    e.preventDefault();
+    var idx = parseInt(this.dataset.index, 10);
+
+    if (isLocked && lockedIndex === idx) {
+      isLocked = false;
+      clearAllMiniSlides();
+      desc.style.opacity = "0";
+      return;
+    }
+
+    selectProject(idx);
+  });
+
 });
 
+/* MAIN LOOP */
 function slideshowLoop(){
   currentSpeed += (targetSpeed - currentSpeed) * easing;
 
-  if(!isHovering){
+  if (!isLocked && !isHovering){
     showSlide(currentIndex);
     updateBottomHighlight(currentIndex);
     currentIndex = (currentIndex + 1) % slides.length;
   }
+
   setTimeout(slideshowLoop, currentSpeed);
 }
 
-window.addEventListener("resize", function() {
-  var active = document.querySelector(".thing.active img");
-  if (active && desc.style.opacity === "1") {
-    positionCaptionForImage(active);
-  }
-});
+/* INIT */
+for (var i = 0; i < slides.length; i++) {
+  var img = slides[i].querySelector("img");
+  var set = projectImagesByIndex[i];
+  if (set[0]) img.src = safeSrc(set[0]);
+}
 
-/* EMOJI SHOWER */
+showSlide(0);
+updateBottomHighlight(0);
+slideshowLoop();
+
+/* ========================= */
+/* EMOJI RAIN */
+/* ========================= */
+
 var nameElem = document.querySelector(".name");
 var snowContainer = document.getElementById("rainbowSnow");
 var snowInterval = null;
@@ -412,36 +436,32 @@ function createRainbow(){
   }, duration * 1000);
 }
 
-nameElem.addEventListener("mouseenter", function(){
-  document.body.classList.add("rainbow-active");
-  if (snowTimeout) clearTimeout(snowTimeout);
-  if (snowInterval) clearInterval(snowInterval);
+if (nameElem) {
 
-  snowTimeout = setTimeout(function(){
-    snowInterval = setInterval(createRainbow, 180);
-  }, 800);
-});
+  nameElem.addEventListener("mouseenter", function(){
 
-nameElem.addEventListener("mouseleave", function(){
-  document.body.classList.remove("rainbow-active");
-  if (snowTimeout) clearTimeout(snowTimeout);
-  if (snowInterval) clearInterval(snowInterval);
-  snowTimeout = null;
-  snowInterval = null;
-  // DO NOT clear existing emojis — they fall and remove themselves
-});
+    document.body.classList.add("rainbow-active");
 
-/* INITIALIZE */
-for (var i = 0; i < slides.length; i++) {
-  var img = slides[i].querySelector("img");
-  if (!img) continue;
-  var set = projectImagesByIndex[i] || [];
-  if (set[0]) img.src = safeSrc(set[0]);
+    if (snowTimeout) clearTimeout(snowTimeout);
+    if (snowInterval) clearInterval(snowInterval);
+
+    snowTimeout = setTimeout(function(){
+      snowInterval = setInterval(createRainbow, 180);
+    }, 800);
+  });
+
+  nameElem.addEventListener("mouseleave", function(){
+
+    document.body.classList.remove("rainbow-active");
+
+    if (snowTimeout) clearTimeout(snowTimeout);
+    if (snowInterval) clearInterval(snowInterval);
+
+    snowTimeout = null;
+    snowInterval = null;
+  });
+
 }
-
-showSlide(0);
-updateBottomHighlight(0);
-slideshowLoop();
 </script>
 
 </body>
