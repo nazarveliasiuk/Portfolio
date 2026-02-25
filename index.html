@@ -372,18 +372,11 @@ document.querySelectorAll(".bottom-projects a").forEach(link=>{
   });
 
   link.addEventListener("click", function(e){
-    e.preventDefault();
-    var idx = parseInt(this.dataset.index, 10);
+  e.preventDefault();
+  var idx = parseInt(this.dataset.index, 10);
 
-    if (isLocked && lockedIndex === idx) {
-      isLocked = false;
-      clearAllMiniSlides();
-      desc.style.opacity = "0";
-      return;
-    }
-
-    selectProject(idx);
-  });
+  selectProject(idx);
+});
 
 });
 
