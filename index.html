@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Nazar Veliasiuk</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+@font-face {
+  font-family: 'MyTypeface';
+  src: url('ABCSocialEdu-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'MyTypeface';
+  src: url('ABCSocialEdu-Bold.woff2') format('woff2');
+  font-weight: bold;
+}
+
+body {
+  font-family: 'MyTypeface';
+  font-size: 0.9rem;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: black;
+  transition: color 4.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition:
+    color 4.8s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.4s ease;
+}
+
+/* TYPOGRAPHY LAYER */
+.info-box {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 300px;
+  font-size: 1.2rem;
+  line-height: 1.1;
+  z-index: 2;
+}
+.name { font-weight: bold; }
+
+.info-box a {
+  font-weight: bold;
+  opacity: 0.25;
+}
+.info-box a:hover { opacity: 1; }
+
+.bottom-projects {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  z-index: 2;
+}
+
+.bottom-projects a {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  opacity: 0.25;
+  transition: opacity 0.4s ease;
+}
+.bottom-projects a.active-project { opacity: 1; }
+
+/* Hide other project names when hovering (image OR project name) */
+.bottom-projects.is-hovering a {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.bottom-projects.is-hovering a.active-project,
+.bottom-projects.is-hovering a:hover {
+  opacity: 1;
+}
+
+.image-description {
+  position: absolute;
+  top: 675px;
+  font-size: 0.85rem;
+  text-align: left;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  line-height: 1.5;
+  z-index: 2;
+}
+
+/* PICTURE LAYER */
+.container-wrapper {
+  position: fixed;
+  top: 46%;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 650px;
+}
+
+.thing {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+  pointer-events: none;
+}
+.thing.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+img {
+  height: 650px;
+  object-fit: contain;
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ========================= */
+/* EMOJI RAIN */
+/* ========================= */
+.rainbow-snow-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.rainbow-snow {
+  position: absolute;
+  top: -140px;
+  width: 45px;
+  opacity: 0;
+  animation:
+    fall linear forwards,
+    fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 0.85; }
+}
+
+@keyframes fall {
+  0%   { transform: translate3d(0,-40px,0) rotate(0deg); }
+  100% { transform: translate3d(0,110vh,0) rotate(360deg); }
+}
+
+/* Text disappears during emoji mode */
+body.rainbow-active .info-box,
+body.rainbow-active .bottom-projects,
+body.rainbow-active .image-description {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+</style>
+</head>
+
+<body>
+
+<div class="info-box">
+  <span class="name">Nazar Veliasiuk</span><br>
+  <a href="info.html">about</a>
+</div>
+
+<div class="container-wrapper">
+  <div class="container" id="stage">
+    <!-- 12 slides (indexes 0–11). src starts empty; JS assigns safely -->
+    <div class="thing"><img src="" alt=""></div> <!-- 0 Nazar is -->
+    <div class="thing"><img src="" alt=""></div> <!-- 1 Kitty -->
+    <div class="thing"><img src="" alt=""></div> <!-- 2 OASE -->
+    <div class="thing"><img src="" alt=""></div> <!-- 3 Water Reflection -->
+    <div class="thing"><img src="" alt=""></div> <!-- 4 Gun/Tongue -->
+    <div class="thing"><img src="" alt=""></div> <!-- 5 Protest Sign -->
+    <div class="thing"><img src="" alt=""></div> <!-- 6 Fragments -->
+    <div class="thing"><img src="" alt=""></div> <!-- 7 CEO -->
+    <div class="thing"><img src="" alt=""></div> <!-- 8 !?... -->
+    <div class="thing"><img src="" alt=""></div> <!-- 9 Kimish -->
+    <div class="thing"><img src="" alt=""></div> <!-- 10 Calendar -->
+    <div class="thing"><img src="" alt=""></div> <!-- 11 Kitchen pleasures -->
+
+    <div class="image-description" id="desc"></div>
+  </div>
+</div>
+
+<div class="bottom-projects">
+  <a data-index="0">Nazar is, 2025</a>
+  <a data-index="1">My name is Kitty, 2025</a>
+  <a data-index="2">OASE 88, 2025</a>
+  <a data-index="3">Water Reflection, 2024</a>
+  <a data-index="4">Gun/Tongue, 2024</a>
+  <a data-index="5">Protest Sign, 2025</a>
+  <a data-index="6">Fragments, 2024</a>
+  <a data-index="7">CEO, 2024</a>
+  <a data-index="8">!?…, 2024</a>
+  <a data-index="9">Kimish, 2025</a>
+  <a data-index="10">Calendar, 2024</a>
+  <a data-index="11">Kitchen pleasures, 2024</a>
+</div>
+
+<div class="rainbow-snow-container" id="rainbowSnow"></div>
+
+<script>
+var slides = document.getElementsByClassName("thing");
+var desc = document.getElementById("desc");
+var bottomProjects = document.querySelector(".bottom-projects");
+
+var captionRatio = 0.6;
+
+var fastSpeed = 1200;
+var slowSpeed = 1200;
+var currentSpeed = fastSpeed;
+var targetSpeed = fastSpeed;
+var easing = 0.03;
+
+var isHovering = false;
+var currentIndex = 0;
+
+/* ✅ Safe URL:
+   - keeps "/" so folders work (gun/tongue1.webp)
+   - forces "?" and "#" to be encoded so weird filenames still load
+*/
+function safeSrc(path) {
+  return encodeURI(path)
+    .replace(/\?/g, "%3F")
+    .replace(/#/g, "%23");
+}
+
+function rangeWebp(prefix, start, end) {
+  var arr = [];
+  for (var i = start; i <= end; i++) arr.push(prefix + i + ".webp");
+  return arr;
+}
+
+var projectImagesByIndex = [
+  ["./Nazaris.webp"],                    // 0 Nazar is
+  rangeWebp("./mynameiskitty", 1, 5),     // 1 Kitty
+  rangeWebp("./oase", 1, 16),             // 2 OASE
+  rangeWebp("./waterreflection", 1, 7),   // 3 Water Reflection
+  rangeWebp("./gun/tongue", 1, 9),        // 4 Gun/Tongue -> gun/tongue1.webp ...
+  ["./protestsign.webp"],                // 5 Protest Sign
+  rangeWebp("./fragments", 1, 9),         // 6 Fragments
+  rangeWebp("./americantech", 1, 5),      // 7 CEO
+  rangeWebp("./!?...", 1, 15),            // 8 !?... -> !?...1.webp etc (with literal "?")
+  rangeWebp("./Kimish", 1, 14),           // 9 Kimish
+  rangeWebp("./calendar", 1, 6),          // 10 Calendar
+  rangeWebp("./kitchenpleasures", 1, 7)   // 11 Kitchen pleasures
+];
+
+var descriptions = [
+  "A self-portrait project that treats identity as a constructed statement. A direct and personal typography-image relation where the self becomes both subject and medium.",
+  "A character/identity exercise built through repetition and variation. A sequence of images that shifts tone from intimate to performative, keeping the persona unstable.",
+  "A visual archive of OASE 88 — rhythm, layout, and atmosphere built through accumulation. The sequence reads like a walk through fragments of one shared space.",
+  "Light as a temporary material. Reflections become typography-like marks: unstable, passing, and dependent on angle, time, and attention.",
+  "Language made physical. Mouth + tool. The images document the tension between control and spill: gesture, saliva, impact, and the body as printer.",
+  "A single-image statement piece — direct, public, and fast. A protest sign treated as a graphic object with urgency baked into its form.",
+  "A book about fragmented bodies — pieces lost or cut from sculptures and drawings. The publication mirrors absence through construction: large sheets folded and cut into A7-sized signatures. Images sourced from the Rijksmuseum archive.",
+  "A short series about corporate myth, tech optimism, and the aesthetics of authority. American-tech imagery reframed as a designed fiction.",
+  "Punctuation as image-language. The work treats symbols as emotional architecture: interruption, overload, noise, and reaction becoming the message itself.",
+  "An exploration of identity as a curated product. By restaging Kim Kardashian’s “Selfish” with my own selfies, the project examines how online personas are constructed, copied, and circulated.",
+  "A calendar as structure and constraint: time turned into layout. The images move through a grid logic where repetition becomes narrative.",
+  "A zine exploring tension between pleasure, embarrassment, and control. Domestic kitchen tools reimagined as instruments of intimacy and transgression."
+];
+
+function showSlide(index){
+  for(var i=0;i<slides.length;i++) slides[i].classList.remove("active");
+  if (slides[index]) slides[index].classList.add("active");
+}
+
+function updateBottomHighlight(index){
+  var links = document.querySelectorAll(".bottom-projects a");
+  links.forEach(l => l.classList.remove("active-project"));
+  if (links[index]) links[index].classList.add("active-project");
+}
+
+function positionCaptionForImage(imgElem) {
+  var imageWidth = imgElem.offsetWidth;
+  var capWidth = imageWidth * captionRatio;
+  desc.style.width = capWidth + "px";
+  desc.style.left = imgElem.offsetLeft + "px";
+}
+
+function clearAllMiniSlides(){
+  for(var i=0;i<slides.length;i++){
+    if (slides[i].miniInterval) clearInterval(slides[i].miniInterval);
+    slides[i].miniInterval = null;
+  }
+}
+
+function activateProject(index){
+  if(!slides[index]) return;
+
+  clearAllMiniSlides();
+  currentIndex = index;
+  showSlide(index);
+  updateBottomHighlight(index);
+
+  var slide = slides[index];
+  var img = slide.querySelector("img");
+
+  img.style.transform = "scale(1.04) translateY(-6px)";
+
+  desc.innerHTML = descriptions[index] || "";
+  desc.style.opacity = "1";
+  positionCaptionForImage(img);
+
+  isHovering = true;
+  targetSpeed = slowSpeed;
+
+  var imgs = projectImagesByIndex[index] || [];
+  if (!imgs.length) return;
+
+  img.src = safeSrc(imgs[0]);
+  positionCaptionForImage(img);
+
+  if (imgs.length > 1) {
+    var miniIndex = 0;
+    slide.miniInterval = setInterval(function(){
+      miniIndex = (miniIndex + 1) % imgs.length;
+      img.src = safeSrc(imgs[miniIndex]);
+      positionCaptionForImage(img);
+    }, 1200);
+  }
+}
+
+function deactivateProject(){
+  clearAllMiniSlides();
+  desc.style.opacity = "0";
+  isHovering = false;
+  targetSpeed = fastSpeed;
+
+  var active = slides[currentIndex] && slides[currentIndex].querySelector("img");
+  if(active){
+    active.style.transform = "scale(1) translateY(0)";
+  }
+}
+
+/* Hover on IMAGE */
+for(let i=0;i<slides.length;i++){
+  slides[i].addEventListener("mouseenter", () => {
+    bottomProjects.classList.add("is-hovering");
+    activateProject(i);
+  });
+  slides[i].addEventListener("mouseleave", () => {
+    bottomProjects.classList.remove("is-hovering");
+    deactivateProject();
+  });
+}
+
+/* Hover on PROJECT NAME */
+document.querySelectorAll(".bottom-projects a").forEach(link=>{
+  link.addEventListener("mouseenter", function(){
+    bottomProjects.classList.add("is-hovering");
+    activateProject(parseInt(this.dataset.index, 10));
+  });
+  link.addEventListener("mouseleave", function(){
+    bottomProjects.classList.remove("is-hovering");
+    deactivateProject();
+  });
+});
+
+function slideshowLoop(){
+  currentSpeed += (targetSpeed - currentSpeed) * easing;
+
+  if(!isHovering){
+    showSlide(currentIndex);
+    updateBottomHighlight(currentIndex);
+    currentIndex = (currentIndex + 1) % slides.length;
+  }
+  setTimeout(slideshowLoop, currentSpeed);
+}
+
+window.addEventListener("resize", function() {
+  var active = document.querySelector(".thing.active img");
+  if (active && desc.style.opacity === "1") {
+    positionCaptionForImage(active);
+  }
+});
+
+/* EMOJI SHOWER */
+var nameElem = document.querySelector(".name");
+var snowContainer = document.getElementById("rainbowSnow");
+var snowInterval = null;
+var snowTimeout = null;
+
+function createRainbow(){
+  var img = document.createElement("img");
+  img.src = "rainbow_1f308.png";
+  img.className = "rainbow-snow";
+  img.style.left = (Math.random() * 100) + "vw";
+
+  var duration = 6 + Math.random() * 6;
+  img.style.animationDuration = duration + "s, 1.2s";
+
+  snowContainer.appendChild(img);
+
+  setTimeout(function(){
+    img.remove();
+  }, duration * 1000);
+}
+
+nameElem.addEventListener("mouseenter", function(){
+  document.body.classList.add("rainbow-active");
+  if (snowTimeout) clearTimeout(snowTimeout);
+  if (snowInterval) clearInterval(snowInterval);
+
+  snowTimeout = setTimeout(function(){
+    snowInterval = setInterval(createRainbow, 180);
+  }, 800);
+});
+
+nameElem.addEventListener("mouseleave", function(){
+  document.body.classList.remove("rainbow-active");
+  if (snowTimeout) clearTimeout(snowTimeout);
+  if (snowInterval) clearInterval(snowInterval);
+  snowTimeout = null;
+  snowInterval = null;
+  // DO NOT clear existing emojis — they fall and remove themselves
+});
+
+/* INITIALIZE */
+for (var i = 0; i < slides.length; i++) {
+  var img = slides[i].querySelector("img");
+  if (!img) continue;
+  var set = projectImagesByIndex[i] || [];
+  if (set[0]) img.src = safeSrc(set[0]);
+}
+
+showSlide(0);
+updateBottomHighlight(0);
+slideshowLoop();
+</script>
+
+</body>
+</html>

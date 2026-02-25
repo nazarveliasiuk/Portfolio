@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Nazar Veliasiuk — About</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+@font-face {
+    font-family: 'MyTypeface';
+    src: url('ABCSocialEdu-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'MyTypeface';
+    src: url('ABCSocialEdu-Bold.woff2') format('woff2');
+    font-weight: bold;
+}
+
+body {
+    font-family: 'MyTypeface';
+    font-size: 0.9rem;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+a { color: black; text-decoration: none; }
+
+/* SAME INFO BOX POSITION */
+.info-box {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 300px;
+    font-size: 2.2rem;   /* same as project names */
+    line-height: 1.1;
+}
+
+
+.name {
+    font-weight: bold;
+    letter-spacing: 0.02em;
+}
+
+.info-box a {
+    font-weight: bold;
+    opacity: 0.25;
+    transition: opacity 0.4s ease;
+}
+.info-box a:hover {
+    opacity: 1;
+}
+
+/* ABOUT CONTENT */
+.about-content {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    margin-top: 140px; /* space below the big title/link */
+    width: 360px;
+    font-size: 0.9rem; /* return to your normal small text */
+    line-height: 1.5;
+}
+
+.about-content a {
+    font-weight: normal;
+    opacity: 1;
+}
+</style>
+</head>
+
+<body>
+
+<div class="info-box">
+    <span class="name">Nazar Veliasiuk</span><br>
+    <a href="index.html">work</a>
+</div>
+
+<div class="about-content">
+    +31 6 23 677 020<br>
+    <a href="mailto:velnazar@icloud.com">velnazar@icloud.com</a><br>
+    <a href="https://www.instagram.com/follownazar/" target="_blank">instagram</a>
+</div>
+
+</body>
+</html>
