@@ -44,6 +44,7 @@ a {
   line-height: 1.1;
   z-index: 2;
   text-transform: uppercase;
+  transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .name { font-weight: bold; }
 
@@ -62,6 +63,7 @@ a {
   line-height: 1.1;
   z-index: 2;
   text-transform: uppercase;
+  transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .bottom-projects a {
@@ -120,7 +122,7 @@ a {
 img {
   height: 650px;
   object-fit: contain;
-  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* EMOJI RAIN */
@@ -151,11 +153,11 @@ img {
   100% { transform: translate3d(0,110vh,0) rotate(360deg); }
 }
 
-body.rainbow-active .info-box,
-body.rainbow-active .bottom-projects,
-body.rainbow-active .image-description {
+body.intro-active .info-box,
+body.intro-active .bottom-projects,
+body.intro-active .image-description {
   opacity: 0;
-  transition: opacity 0.6s ease;
+  pointer-events: none;
 }
 </style>
 </head>
@@ -239,7 +241,7 @@ var projectImagesByIndex = [
   rangeWebp("./mynameiskitty", 1, 5),
   rangeWebp("./oase", 1, 16),
   rangeWebp("./waterreflection", 1, 7),
-  rangeWebp("./gun/tongue", 1, 9),
+  rangeWebp("./gun-tongue", 1, 9),
   ["./protestsign.webp"],
   rangeWebp("./fragments", 1, 9),
   rangeWebp("./americantech", 1, 5),
@@ -311,7 +313,8 @@ function activateProject(index){
   isHovering = true;
   targetSpeed = slowSpeed;
 
-  desc.style.opacity = "0"; // no description on hover
+  // DO NOT touch description here
+  desc.style.opacity = "0";
 
   var slide = slides[index];
   var img = slide.querySelector("img");
@@ -330,8 +333,8 @@ function selectProject(index){
   showSlide(index);
   updateBottomHighlight(index);
 
-  desc.innerHTML = descriptions[index];
-  desc.style.opacity = "1";
+desc.innerHTML = descriptions[index];
+desc.style.opacity = "0";
 
   var slide = slides[index];
   var img = slide.querySelector("img");
@@ -341,18 +344,34 @@ function selectProject(index){
 
 /* IMAGE HOVER */
 for(let i=0;i<slides.length;i++){
+
   slides[i].addEventListener("mouseenter", () => {
-    if(isLocked) return;
+
+    // If locked → show description
+    if (isLocked && i === lockedIndex) {
+      desc.style.opacity = "1";
+      return;
+    }
+
+    // If NOT locked → normal hover preview behavior
     activateProject(i);
   });
 
   slides[i].addEventListener("mouseleave", () => {
-    if(isLocked) return;
+
+    // If locked → just hide description
+    if (isLocked && i === lockedIndex) {
+      desc.style.opacity = "0";
+      return;
+    }
+
+    // Normal hover exit
     clearAllMiniSlides();
     desc.style.opacity = "0";
     isHovering = false;
     targetSpeed = fastSpeed;
   });
+
 }
 
 /* PROJECT NAME EVENTS */
@@ -455,6 +474,26 @@ if (nameElem) {
   });
 
 }
+/* ========================= */
+/* INTRO (IMAGE ONLY START) */
+/* ========================= */
+
+var introActive = true;
+
+// Start in intro mode
+document.body.classList.add("intro-active");
+
+// End intro on first click
+function endIntro() {
+  if (!introActive) return;
+
+  introActive = false;
+  document.body.classList.remove("intro-active");
+
+  document.removeEventListener("click", endIntro);
+}
+
+document.addEventListener("click", endIntro);
 </script>
 
 </body>
