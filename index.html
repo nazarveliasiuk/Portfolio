@@ -15,6 +15,35 @@
   src: url('ABCSocialEdu-Bold.woff2') format('woff2');
   font-weight: bold;
 }
+@font-face {
+  font-family: 'MyTypeface';
+  src: url('ABCSocialEdu-Thin.woff2') format('woff2');
+  font-weight: thin;
+}
+@font-face {
+  font-family: 'MyTypeface';
+  src: url('ABCSocialEdu-Light.woff2') format('woff2');
+  font-weight: light;
+}
+@font-face {
+  font-family: 'MyTypeface2';
+  src: url('ABCSocialCondensedEdu-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'MyTypeface2';
+  src: url('ABCSocialCondensedEdu-Light.woff2') format('woff2');
+  font-weight: light;
+}
+@font-face {
+  font-family: 'MyTypeface2';
+  src: url('ABCSocialCondensedEdu-Thin.woff2') format('woff2');
+  font-weight: thin;
+}
+@font-face {
+  font-family: 'MyTypeface2';
+  src: url('ABCSocialCondensedEdu-Bold.woff2') format('woff2');
+  font-weight: bold;
+}
 
 body {
   font-family: 'MyTypeface';
@@ -36,6 +65,7 @@ a {
 
 /* TYPOGRAPHY LAYER */
 .info-box {
+  font-family: 'MyTypeface';
   position: fixed;
   top: 20px;
   left: 20px;
@@ -55,6 +85,7 @@ a {
 .info-box a:hover { opacity: 1; }
 
 .bottom-projects {
+  font-family: 'MyTypeface';
   position: fixed;
   bottom: 20px;
   left: 20px;
@@ -79,14 +110,18 @@ a {
 .image-description {
   position: fixed;
   bottom: 20px;
-  left: 380px; /* adjust if needed */
+  left: 50%;
+  transform: translateX(-50%);
   width: 520px;
-  max-width: calc(100vw - 420px);
-  font-size: 1rem;
-  text-align: left;
+  max-width: 90vw;
+  font-size: 0.85rem;
+  text-align: center; /* change to center */
   transition: opacity 0.4s ease;
   z-index: 2;
-  color: grey; /* below image layer (3), above background */
+  color: black;
+  font-family: 'MyTypeface';
+  font-weight: thin;
+  line-height: 0.90rem;
 }
 
 /* PICTURE LAYER */
@@ -253,18 +288,18 @@ var projectImagesByIndex = [
 
 /* DESCRIPTIONS */
 var descriptions = [
-  "A self-portrait project that treats identity as a constructed statement. A direct and personal typography-image relation where the self becomes both subject and medium.",
-  "A character/identity exercise built through repetition and variation. A sequence of images that shifts tone from intimate to performative, keeping the persona unstable.",
-  "A visual archive of OASE 88 — rhythm, layout, and atmosphere built through accumulation. The sequence reads like a walk through fragments of one shared space.",
-  "Light as a temporary material. Reflections become typography-like marks: unstable, passing, and dependent on angle, time, and attention.",
-  "Language made physical. Mouth + tool. The images document the tension between control and spill: gesture, saliva, impact, and the body as printer.",
+  "In my installation, I explore the theme of self-identity and how others’ opinions often shape it. To learn more about myself, I asked my classmates to anonymously share one “positive” and one “negative” thing about me, and I turned their responses into an installation. Through this, I learned that some classmates see me as a stereotypical gay man, that I point out dirt on people’s clothes, that I am a girls’ magnet, etc.",
+  "“My name is Kitty” is a series of five photographs documenting a performance in which I present myself as a woman and engage in intimate online conversations with men. For the photos, I built a temporary structure using items from the photo studio, such as tables, chairs, and a stepladder. Screenshots from video chats, printed on A3 paper, were taped to this structure, reflecting the fake, fragile reality created in chat.",
+  "A5 size redesign issue of OASE 88. OxyContin, introduced in the 1990s as a low-risk painkiller, hid its potential for addiction and increased the opioid epidemic in the USA, causing more than 650,000 deaths. Profits from the drug were later used by the Sackler family to fund institutions such as the Metropolitan Museum and the Guggenheim. The leporello publication juxtaposes articles from OASE 88 with OxyContin advertisements and images of Sackler-funded institutions.",
+  "A series of experiments to explore two worlds existing in water: its natural physical state and the changing reality of reflection that it creates with its surface. Experiments are done both analogue and digital.",
+  "A3 type specimen about typography made with “water”. I used two tools to write the words: a water gun and my tongue.",
   "A single-image statement piece — direct, public, and fast. A protest sign treated as a graphic object with urgency baked into its form.",
-  "A book about fragmented bodies — pieces lost or cut from sculptures and drawings. The publication mirrors absence through construction.",
-  "A short series about corporate myth, tech optimism, and the aesthetics of authority.",
-  "Punctuation as image-language. The work treats symbols as emotional architecture.",
-  "An exploration of identity as a curated product.",
-  "A calendar as structure and constraint.",
-  "A zine exploring tension between pleasure, embarrassment, and control."
+  "A book about human body fragments that are lost or cut from sculptures and drawings. The upside-down-cut-off appearance of the book was created by folding and cutting large sheets of paper into A7 sized signature. The book was created using images from the Rijksmuseum archive.",
+  "A series of caricatures of major American tech executives, some of the richest people in the world. Digital mosaic of the logos of the companies they control.<br><br>Elon Musk, the X owner and Tesla and SpaceX CEO.<br>Jeff Bezos, the Amazon founder.<br>Mark Zuckerberg, the Meta CEO.<br>Tim Cook, the CEO of Apple.<br>Bill Gates, co-founder of Microsoft.",
+  "A1 poster series about the use of punctuation in comics. Made in collage technique and printed in silkscreen.",
+  "The book “kimish” features my selfies, which I copied from Kim Kardashian’s “selfish” photo book. Each photo has a corresponding page number that refers the viewer to the image from Kim’s book. I also included a short essay I wrote as a reflection on how fame, algorithm and social media can affect a person’s identity.",
+  "A calendar was made from memories of my childhood. Each day has an individual picture, each month name has an individual design, and each page is silkscreen printed.",
+  "Zine reflects on how society stigmatises and taboos topics of nudity, gender, and sexual expression. It explores the paradox of pain and pleasure, control and passion – all told through home kitchen tools reimagined as instruments of transgression. Collages from nude clippings from magazines, highlights of reflective conversations and tactile transparent stickers give the reader a sense of the simultaneous pleasure, embarrassment and possible discomfort we feel during sexual experiences."
 ];
 
 function showSlide(index){
@@ -324,6 +359,7 @@ function activateProject(index){
 
 /* LOCK MODE */
 function selectProject(index){
+
   clearAllMiniSlides();
 
   isLocked = true;
@@ -333,13 +369,18 @@ function selectProject(index){
   showSlide(index);
   updateBottomHighlight(index);
 
-desc.innerHTML = descriptions[index];
-desc.style.opacity = "0";
-
   var slide = slides[index];
   var img = slide.querySelector("img");
 
   startMiniSlideshow(slide, img, index);
+
+  // If description is already visible → just swap text
+  if (desc.style.opacity === "1") {
+    desc.innerHTML = descriptions[index];
+  } else {
+    desc.innerHTML = descriptions[index];
+    desc.style.opacity = "1";
+  }
 }
 
 /* IMAGE HOVER */
@@ -347,27 +388,18 @@ for(let i=0;i<slides.length;i++){
 
   slides[i].addEventListener("mouseenter", () => {
 
-    // If locked → show description
-    if (isLocked && i === lockedIndex) {
-      desc.style.opacity = "1";
-      return;
-    }
+    // If locked → do nothing
+    if (isLocked) return;
 
-    // If NOT locked → normal hover preview behavior
     activateProject(i);
   });
 
   slides[i].addEventListener("mouseleave", () => {
 
-    // If locked → just hide description
-    if (isLocked && i === lockedIndex) {
-      desc.style.opacity = "0";
-      return;
-    }
+    // If locked → do nothing
+    if (isLocked) return;
 
-    // Normal hover exit
     clearAllMiniSlides();
-    desc.style.opacity = "0";
     isHovering = false;
     targetSpeed = fastSpeed;
   });
@@ -478,22 +510,33 @@ if (nameElem) {
 /* INTRO (IMAGE ONLY START) */
 /* ========================= */
 
+var urlParams = new URLSearchParams(window.location.search);
+var skipIntro = urlParams.get("skipIntro") === "true";
+
 var introActive = true;
 
-// Start in intro mode
-document.body.classList.add("intro-active");
-
-// End intro on first click
-function endIntro() {
-  if (!introActive) return;
-
+if (skipIntro) {
   introActive = false;
-  document.body.classList.remove("intro-active");
 
-  document.removeEventListener("click", endIntro);
+  // Remove query parameter immediately
+  window.history.replaceState({}, document.title, window.location.pathname);
 }
 
-document.addEventListener("click", endIntro);
+if (introActive) {
+
+  document.body.classList.add("intro-active");
+
+  function endIntro() {
+    if (!introActive) return;
+
+    introActive = false;
+    document.body.classList.remove("intro-active");
+
+    document.removeEventListener("click", endIntro);
+  }
+
+  document.addEventListener("click", endIntro);
+}
 </script>
 
 </body>

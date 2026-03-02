@@ -7,65 +7,70 @@
 
 <style>
 @font-face {
-    font-family: 'MyTypeface';
-    src: url('ABCSocialEdu-Regular.woff2') format('woff2');
+  font-family: 'MyTypeface';
+  src: url('ABCSocialEdu-Regular.woff2') format('woff2');
 }
 @font-face {
-    font-family: 'MyTypeface';
-    src: url('ABCSocialEdu-Bold.woff2') format('woff2');
-    font-weight: bold;
+  font-family: 'MyTypeface';
+  src: url('ABCSocialEdu-Bold.woff2') format('woff2');
+  font-weight: bold;
 }
 
 body {
-    font-family: 'MyTypeface';
-    font-size: 0.9rem;
-    margin: 0;
-    -webkit-font-smoothing: antialiased;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
+  font-family: 'MyTypeface';
+  font-size: 0.9rem;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.02em;
+  color: black;
 }
 
-a { color: black; text-decoration: none; }
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.4s ease;
+}
 
-/* SAME INFO BOX POSITION */
+/* INFO BOX — EXACT SAME AS INDEX */
 .info-box {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    width: 300px;
-    font-size: 2.2rem;   /* same as project names */
-    line-height: 1.1;
+  font-family: 'MyTypeface';
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 300px;
+  font-size: 1.2rem;
+  line-height: 1.1;
+  z-index: 2;
+  text-transform: uppercase;
 }
-
 
 .name {
-    font-weight: bold;
-    letter-spacing: 0.02em;
+  font-weight: bold;
 }
 
 .info-box a {
-    font-weight: bold;
-    opacity: 0.25;
-    transition: opacity 0.4s ease;
-}
-.info-box a:hover {
-    opacity: 1;
+  font-weight: bold;
+  opacity: 0.25;
 }
 
-/* ABOUT CONTENT */
+.info-box a:hover {
+  opacity: 1;
+}
+
+/* ABOUT CONTENT — MATCHING DESCRIPTION STYLE */
 .about-content {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    margin-top: 140px; /* space below the big title/link */
-    width: 360px;
-    font-size: 0.9rem; /* return to your normal small text */
-    line-height: 1.5;
+  position: fixed;
+  top: 140px;
+  left: 20px;
+  width: 360px;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  text-transform: none; /* important */
+  font-weight: 100;
 }
 
 .about-content a {
-    font-weight: normal;
-    opacity: 1;
+  opacity: 1;
 }
 </style>
 </head>
@@ -74,7 +79,7 @@ a { color: black; text-decoration: none; }
 
 <div class="info-box">
     <span class="name">Nazar Veliasiuk</span><br>
-    <a href="index.html">work</a>
+    <a href="index.html?skipIntro=true">work</a>
 </div>
 
 <div class="about-content">
