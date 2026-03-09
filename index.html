@@ -25,6 +25,7 @@
   src: url('ABCSocialEdu-Light.woff2') format('woff2');
   font-weight: light;
 }
+
 @font-face {
   font-family: 'MyTypeface2';
   src: url('ABCSocialCondensedEdu-Regular.woff2') format('woff2');
@@ -64,24 +65,27 @@ a {
 }
 
 /* TYPOGRAPHY LAYER */
+
 .info-box {
   font-family: 'MyTypeface';
   position: fixed;
   top: 20px;
   left: 20px;
-  width: 300px;
-  font-size: 1.2rem;
+  width: min(300px, 80vw);
+  font-size: clamp(0.9rem, 1.6vw, 1.2rem);
   line-height: 1.1;
   z-index: 2;
   text-transform: uppercase;
   transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
 .name { font-weight: bold; }
 
 .info-box a {
   font-weight: bold;
   opacity: 0.25;
 }
+
 .info-box a:hover { opacity: 1; }
 
 .bottom-projects {
@@ -99,12 +103,13 @@ a {
 
 .bottom-projects a {
   display: block;
-  font-size: 1.2rem;
+  font-size: clamp(0.85rem, 1.6vw, 1.2rem);
   font-weight: bold;
   opacity: 0.25;
   transition: opacity 0.4s ease;
   cursor: pointer;
 }
+
 .bottom-projects a.active-project { opacity: 1; }
 
 .image-description {
@@ -114,29 +119,32 @@ a {
   transform: translateX(-50%);
   width: 520px;
   max-width: 90vw;
-  font-size: 0.85rem;
-  text-align: center; /* change to center */
+  font-size: clamp(0.7rem, 1vw, 0.9rem);
+  text-align: center;
   transition: opacity 0.4s ease;
   z-index: 2;
   color: black;
   font-family: 'MyTypeface';
   font-weight: thin;
-  line-height: 0.90rem;
+  line-height: 0.9rem;
 }
 
 /* PICTURE LAYER */
+
 .container-wrapper {
   position: fixed;
-  top: 46%;
-  left: 50% !important;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 1200px;
   z-index: 3;
 }
 
 .container {
   position: relative;
   width: 100%;
-  height: 650px;
+  height: min(65vh, 650px);
 }
 
 .thing {
@@ -149,18 +157,21 @@ a {
   transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
   pointer-events: none;
 }
+
 .thing.active {
   opacity: 1;
   pointer-events: auto;
 }
 
-img {
-  height: 650px;
+img,
+video {
+  max-height: min(65vh, 650px);
+  max-width: 100%;
   object-fit: contain;
-  transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* EMOJI RAIN */
+
 .rainbow-snow-container {
   position: fixed;
   inset: 0;
@@ -179,12 +190,12 @@ img {
 }
 
 @keyframes fadeIn {
-  0%   { opacity: 0; }
+  0% { opacity: 0; }
   100% { opacity: 0.85; }
 }
 
 @keyframes fall {
-  0%   { transform: translate3d(0,-40px,0) rotate(0deg); }
+  0% { transform: translate3d(0,-40px,0) rotate(0deg); }
   100% { transform: translate3d(0,110vh,0) rotate(360deg); }
 }
 
@@ -193,6 +204,46 @@ body.intro-active .bottom-projects,
 body.intro-active .image-description {
   opacity: 0;
   pointer-events: none;
+}
+
+/* ===================== */
+/* MOBILE LAYOUT */
+/* ===================== */
+
+@media (max-width: 700px) {
+
+  .info-box {
+    top: 12px;
+    left: 12px;
+    font-size: 0.9rem;
+    width: auto;
+  }
+
+  .bottom-projects {
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .bottom-projects a {
+    font-size: 0.75rem;
+    opacity: 0.6;
+  }
+
+  .image-description {
+    bottom: 60px;
+    width: 90vw;
+    font-size: 0.7rem;
+    line-height: 1rem;
+  }
+
+  img,
+  video {
+    max-height: 60vh;
+  }
 }
 </style>
 </head>
@@ -207,6 +258,14 @@ body.intro-active .image-description {
 <div class="container-wrapper">
   <div class="container" id="stage">
 
+    <!-- Slide 0 now contains both image and video -->
+    <div class="thing">
+      <img src="" alt="" class="nazaris-image">
+      <video id="nazarisVideo" loop playsinline style="display:none;">
+        <source src="nazaris.mp4" type="video/mp4">
+      </video>
+    </div>
+
     <!-- Slides -->
     <div class="thing"><img src="" alt=""></div>
     <div class="thing"><img src="" alt=""></div>
@@ -219,7 +278,11 @@ body.intro-active .image-description {
     <div class="thing"><img src="" alt=""></div>
     <div class="thing"><img src="" alt=""></div>
     <div class="thing"><img src="" alt=""></div>
-    <div class="thing"><img src="" alt=""></div>
+    <div class="thing">
+      <video id="bananaCultVideo" loop playsinline style="display:none;">
+        <source src="bananacult.mp4" type="video/mp4">
+      </video>
+    </div>
   </div>
 </div>
 
@@ -238,6 +301,7 @@ body.intro-active .image-description {
   <a data-index="9">Kimish, 2025</a>
   <a data-index="10">Calendar, 2024</a>
   <a data-index="11">Kitchen pleasures, 2024</a>
+  <a data-index="12">Banana Cult, 2024</a>
 </div>
 
 <div class="rainbow-snow-container" id="rainbowSnow"></div>
@@ -283,7 +347,8 @@ var projectImagesByIndex = [
   rangeWebp("./!?...", 1, 15),
   rangeWebp("./Kimish", 1, 14),
   rangeWebp("./calendar", 1, 6),
-  rangeWebp("./kitchenpleasures", 1, 7)
+  rangeWebp("./kitchenpleasures", 1, 7),
+  []
 ];
 
 /* DESCRIPTIONS */
@@ -299,7 +364,8 @@ var descriptions = [
   "A1 poster series about the use of punctuation in comics. Made in collage technique and printed in silkscreen.",
   "The book “kimish” features my selfies, which I copied from Kim Kardashian’s “selfish” photo book. Each photo has a corresponding page number that refers the viewer to the image from Kim’s book. I also included a short essay I wrote as a reflection on how fame, algorithm and social media can affect a person’s identity.",
   "A calendar was made from memories of my childhood. Each day has an individual picture, each month name has an individual design, and each page is silkscreen printed.",
-  "Zine reflects on how society stigmatises and taboos topics of nudity, gender, and sexual expression. It explores the paradox of pain and pleasure, control and passion – all told through home kitchen tools reimagined as instruments of transgression. Collages from nude clippings from magazines, highlights of reflective conversations and tactile transparent stickers give the reader a sense of the simultaneous pleasure, embarrassment and possible discomfort we feel during sexual experiences."
+  "Zine reflects on how society stigmatises and taboos topics of nudity, gender, and sexual expression. It explores the paradox of pain and pleasure, control and passion – all told through home kitchen tools reimagined as instruments of transgression. Collages from nude clippings from magazines, highlights of reflective conversations and tactile transparent stickers give the reader a sense of the simultaneous pleasure, embarrassment and possible discomfort we feel during sexual experiences.",
+  "Cavendish banana is grown as a sterile clone, making it seedless but highly vulnerable to Panama disease, a threat to its survival. To preserve this fruit for future generations, I created a religion and invented five rituals centred on the banana, which I documented through video and photographs. To emphasise its greater value and delicacy, I covered the fruit in gold."
 ];
 
 function showSlide(index){
@@ -321,9 +387,63 @@ function clearAllMiniSlides(){
   }
 }
 
+function stopAllVideos() {
+  var v1 = document.getElementById("nazarisVideo");
+  if (v1){
+    v1.pause();
+    v1.currentTime = 0;
+    v1.style.display = "none";
+  }
+
+  var v2 = document.getElementById("bananaCultVideo");
+  if (v2){
+    v2.pause();
+    v2.currentTime = 0;
+    v2.style.display = "none";
+  }
+
+  var firstImg = slides[0].querySelector("img");
+  if(firstImg) firstImg.style.display = "";
+}
+
+function playNazarisVideo() {
+  var video = document.getElementById("nazarisVideo");
+  var firstSlide = slides[0];
+  if (!video || !firstSlide) return;
+
+  var firstImg = firstSlide.querySelector("img");
+  if (firstImg) firstImg.style.display = "none";
+
+  video.style.display = "block";
+  video.currentTime = 0;
+  video.muted = false;
+  video.volume = 1;
+
+  var playPromise = video.play();
+  if (playPromise && typeof playPromise.catch === "function") {
+    playPromise.catch(function(){});
+  }
+}
+
+function playBananaVideo(){
+  var video = document.getElementById("bananaCultVideo");
+  if(!video) return;
+
+  video.style.display = "block";
+  video.currentTime = 0;
+  video.muted = false;
+  video.volume = 1;
+
+  var p = video.play();
+  if(p && p.catch) p.catch(function(){});
+}
+
 /* MINI SLIDESHOW */
 function startMiniSlideshow(slide, img, index){
   var imgs = projectImagesByIndex[index];
+
+  if (!img || !imgs || imgs.length === 0) return;
+
   img.src = safeSrc(imgs[0]);
 
   if (imgs.length > 1) {
@@ -339,6 +459,7 @@ function startMiniSlideshow(slide, img, index){
 function activateProject(index){
   if(!slides[index]) return;
 
+  stopAllVideos();
   clearAllMiniSlides();
   currentIndex = index;
 
@@ -348,7 +469,6 @@ function activateProject(index){
   isHovering = true;
   targetSpeed = slowSpeed;
 
-  // DO NOT touch description here
   desc.style.opacity = "0";
 
   var slide = slides[index];
@@ -359,7 +479,6 @@ function activateProject(index){
 
 /* LOCK MODE */
 function selectProject(index){
-
   clearAllMiniSlides();
 
   isLocked = true;
@@ -372,9 +491,20 @@ function selectProject(index){
   var slide = slides[index];
   var img = slide.querySelector("img");
 
-  startMiniSlideshow(slide, img, index);
+  stopAllVideos();
 
-  // If description is already visible → just swap text
+  if (index === 0) {
+    var firstImg = slides[0].querySelector("img");
+    if(firstImg) firstImg.style.display = "none";
+    playNazarisVideo();
+  }
+  else if (index === 12) {
+    playBananaVideo();
+  }
+  else {
+    startMiniSlideshow(slide, img, index);
+  }
+
   if (desc.style.opacity === "1") {
     desc.innerHTML = descriptions[index];
   } else {
@@ -387,19 +517,15 @@ function selectProject(index){
 for(let i=0;i<slides.length;i++){
 
   slides[i].addEventListener("mouseenter", () => {
-
-    // If locked → do nothing
     if (isLocked) return;
-
     activateProject(i);
   });
 
   slides[i].addEventListener("mouseleave", () => {
-
-    // If locked → do nothing
     if (isLocked) return;
 
     clearAllMiniSlides();
+    stopAllVideos();
     isHovering = false;
     targetSpeed = fastSpeed;
   });
@@ -417,17 +543,17 @@ document.querySelectorAll(".bottom-projects a").forEach(link=>{
   link.addEventListener("mouseleave", function(){
     if(isLocked) return;
     clearAllMiniSlides();
+    stopAllVideos();
     desc.style.opacity = "0";
     isHovering = false;
     targetSpeed = fastSpeed;
   });
 
   link.addEventListener("click", function(e){
-  e.preventDefault();
-  var idx = parseInt(this.dataset.index, 10);
-
-  selectProject(idx);
-});
+    e.preventDefault();
+    var idx = parseInt(this.dataset.index, 10);
+    selectProject(idx);
+  });
 
 });
 
@@ -436,6 +562,7 @@ function slideshowLoop(){
   currentSpeed += (targetSpeed - currentSpeed) * easing;
 
   if (!isLocked && !isHovering){
+    stopAllVideos();
     showSlide(currentIndex);
     updateBottomHighlight(currentIndex);
     currentIndex = (currentIndex + 1) % slides.length;
@@ -448,7 +575,7 @@ function slideshowLoop(){
 for (var i = 0; i < slides.length; i++) {
   var img = slides[i].querySelector("img");
   var set = projectImagesByIndex[i];
-  if (set[0]) img.src = safeSrc(set[0]);
+  if (img && set && set[0]) img.src = safeSrc(set[0]);
 }
 
 showSlide(0);
@@ -506,6 +633,7 @@ if (nameElem) {
   });
 
 }
+
 /* ========================= */
 /* INTRO (IMAGE ONLY START) */
 /* ========================= */
@@ -517,8 +645,6 @@ var introActive = true;
 
 if (skipIntro) {
   introActive = false;
-
-  // Remove query parameter immediately
   window.history.replaceState({}, document.title, window.location.pathname);
 }
 
