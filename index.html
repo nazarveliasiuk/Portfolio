@@ -54,6 +54,7 @@ body {
   letter-spacing: 0.02em;
   color: black;
   transition: color 4.8s cubic-bezier(0.25, 1, 0.5, 1);
+  overflow-x: hidden;
 }
 
 a {
@@ -93,6 +94,7 @@ a {
   position: fixed;
   bottom: 20px;
   left: 20px;
+  width: clamp(150px, 18vw, 220px);
   display: flex;
   flex-direction: column;
   line-height: 1.1;
@@ -100,6 +102,7 @@ a {
   text-transform: uppercase;
   transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
   gap: 2px;
+  max-width: 200px;
 }
 
 .bottom-projects a {
@@ -109,6 +112,7 @@ a {
   opacity: 0.25;
   transition: opacity 0.4s ease;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .bottom-projects a.active-project { opacity: 1; }
@@ -218,16 +222,16 @@ body.intro-active .image-description {
   }
 
   .bottom-projects a {
-    font-size: clamp(0.65rem, 2.2vw, 0.85rem);
+    font-size: clamp(0.65rem, 2vw, 0.85rem);
   }
 
   .image-description {
-    left: 170px;
     bottom: 15px;
+    left: 160px;
     transform: none;
-    width: calc(100vw - 190px);
+    width: calc(100vw - 175px);
     text-align: left;
-    font-size: clamp(0.6rem, 2.2vw, 0.8rem);
+    font-size: clamp(0.65rem, 2vw, 0.85rem);
     line-height: 1.2;
   }
 
