@@ -99,11 +99,12 @@ a {
   z-index: 2;
   text-transform: uppercase;
   transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+  gap: 2px;
 }
 
 .bottom-projects a {
   display: block;
-  font-size: clamp(0.85rem, 1.6vw, 1.2rem);
+  font-size: clamp(0.7rem, 1.2vw, 1.2rem);
   font-weight: bold;
   opacity: 0.25;
   transition: opacity 0.4s ease;
@@ -117,23 +118,22 @@ a {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 520px;
-  max-width: 90vw;
-  font-size: clamp(0.7rem, 1vw, 0.9rem);
+  width: min(520px, 90vw);
+  font-size: clamp(0.65rem, 0.9vw, 0.9rem);
   text-align: center;
   transition: opacity 0.4s ease;
   z-index: 2;
   color: black;
   font-family: 'MyTypeface';
   font-weight: thin;
-  line-height: 0.9rem;
+  line-height: 1.1;
 }
 
 /* PICTURE LAYER */
 
 .container-wrapper {
   position: fixed;
-  top: 50%;
+  top: 46%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90vw;
@@ -212,38 +212,30 @@ body.intro-active .image-description {
 
 @media (max-width: 700px) {
 
-  .info-box {
-    top: 12px;
-    left: 12px;
-    font-size: 0.9rem;
-    width: auto;
-  }
-
   .bottom-projects {
-    bottom: 12px;
-    left: 12px;
-    right: 12px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 6px;
+    bottom: 15px;
+    left: 15px;
   }
 
   .bottom-projects a {
-    font-size: 0.75rem;
-    opacity: 0.6;
+    font-size: clamp(0.65rem, 2.2vw, 0.85rem);
   }
 
   .image-description {
-    bottom: 60px;
-    width: 90vw;
-    font-size: 0.7rem;
-    line-height: 1rem;
+    left: 170px;
+    bottom: 15px;
+    transform: none;
+    width: calc(100vw - 190px);
+    text-align: left;
+    font-size: clamp(0.6rem, 2.2vw, 0.8rem);
+    line-height: 1.2;
   }
 
   img,
   video {
-    max-height: 60vh;
+    max-height: min(55vh, 500px);
   }
+
 }
 </style>
 </head>
