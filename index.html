@@ -254,7 +254,7 @@ body.intro-active .image-description {
 <div class="container-wrapper">
   <div class="container" id="stage">
 
-    <!-- Slide 0 now contains both image and video -->
+    <!-- Slide 0 -->
     <div class="thing">
       <img src="" alt="" class="nazaris-image">
       <video id="nazarisVideo" loop playsinline style="display:none;">
@@ -262,7 +262,7 @@ body.intro-active .image-description {
       </video>
     </div>
 
-    <!-- Slides -->
+    <!-- Slides 1–11 -->
     <div class="thing"><img src="" alt=""></div>
     <div class="thing"><img src="" alt=""></div>
     <div class="thing"><img src="" alt=""></div>
@@ -274,11 +274,18 @@ body.intro-active .image-description {
     <div class="thing"><img src="" alt=""></div>
     <div class="thing"><img src="" alt=""></div>
     <div class="thing"><img src="" alt=""></div>
+
+    <!-- Slide 12: Banana Cult -->
     <div class="thing">
+      <img src="" alt="">
       <video id="bananaCultVideo" loop playsinline style="display:none;">
         <source src="bananacult.mp4" type="video/mp4">
       </video>
     </div>
+
+    <!-- Slide 13: Broken habits -->
+    <div class="thing"><img src="" alt=""></div>
+
   </div>
 </div>
 
@@ -298,6 +305,7 @@ body.intro-active .image-description {
   <a data-index="10">Calendar, 2024</a>
   <a data-index="11">Kitchen pleasures, 2024</a>
   <a data-index="12">Banana Cult, 2024</a>
+  <a data-index="13">Broken habits, 2025</a>
 </div>
 
 <div class="rainbow-snow-container" id="rainbowSnow"></div>
@@ -344,7 +352,8 @@ var projectImagesByIndex = [
   rangeWebp("./Kimish", 1, 14),
   rangeWebp("./calendar", 1, 6),
   rangeWebp("./kitchenpleasures", 1, 7),
-  []
+  ["./bananacult.webp"],
+  rangeWebp("./brokenhabits", 1, 20)
 ];
 
 /* DESCRIPTIONS */
@@ -361,7 +370,8 @@ var descriptions = [
   "The book “kimish” features my selfies, which I copied from Kim Kardashian’s “selfish” photo book. Each photo has a corresponding page number that refers the viewer to the image from Kim’s book. I also included a short essay I wrote as a reflection on how fame, algorithm and social media can affect a person’s identity.",
   "A calendar was made from memories of my childhood. Each day has an individual picture, each month name has an individual design, and each page is silkscreen printed.",
   "Zine reflects on how society stigmatises and taboos topics of nudity, gender, and sexual expression. It explores the paradox of pain and pleasure, control and passion – all told through home kitchen tools reimagined as instruments of transgression. Collages from nude clippings from magazines, highlights of reflective conversations and tactile transparent stickers give the reader a sense of the simultaneous pleasure, embarrassment and possible discomfort we feel during sexual experiences.",
-  "Cavendish banana is grown as a sterile clone, making it seedless but highly vulnerable to Panama disease, a threat to its survival. To preserve this fruit for future generations, I created a religion and invented five rituals centred on the banana, which I documented through video and photographs. To emphasise its greater value and delicacy, I covered the fruit in gold."
+  "Cavendish banana is grown as a sterile clone, making it seedless but highly vulnerable to Panama disease, a threat to its survival. To preserve this fruit for future generations, I created a religion and invented five rituals centred on the banana, which I documented through video and photographs. To emphasise its greater value and delicacy, I covered the fruit in gold.",
+  "A publication presenting five experiments that challenge behavioural norms. Learned habits and unconscious visual cues strongly affect human actions. By disrupting familiar spatial elements and sensory perceptions, I prompted myself to find new ways to navigate. The experiments take the form of spatial interventions and performances."
 ];
 
 function showSlide(index){
@@ -400,6 +410,9 @@ function stopAllVideos() {
 
   var firstImg = slides[0].querySelector("img");
   if(firstImg) firstImg.style.display = "";
+
+  var bananaImg = slides[12].querySelector("img");
+  if(bananaImg) bananaImg.style.display = "";
 }
 
 function playNazarisVideo() {
@@ -423,7 +436,11 @@ function playNazarisVideo() {
 
 function playBananaVideo(){
   var video = document.getElementById("bananaCultVideo");
-  if(!video) return;
+  var slide = slides[12];
+  if(!video || !slide) return;
+
+  var img = slide.querySelector("img");
+  if (img) img.style.display = "none";
 
   video.style.display = "block";
   video.currentTime = 0;
