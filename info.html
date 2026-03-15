@@ -6,23 +6,57 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
+
+/* ===================== */
+/* FONTS */
+/* ===================== */
+
 @font-face {
   font-family: 'MyTypeface';
   src: url('ABCSocialEdu-Regular.woff2') format('woff2');
 }
+
 @font-face {
   font-family: 'MyTypeface';
   src: url('ABCSocialEdu-Bold.woff2') format('woff2');
   font-weight: bold;
 }
 
+@font-face {
+  font-family: 'MyTypeface';
+  src: url('ABCSocialEdu-Thin.woff2') format('woff2');
+  font-weight: thin;
+}
+
+@font-face {
+  font-family: 'MyTypeface';
+  src: url('ABCSocialEdu-Light.woff2') format('woff2');
+  font-weight: light;
+}
+
+@font-face {
+  font-family: 'MyTypeface';
+  src: url('ABCSocialEdu-Medium.woff2') format('woff2');
+  font-weight: medium;
+}
+
+/* ===================== */
+/* BASE TYPOGRAPHY */
+/* ===================== */
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
 body {
   font-family: 'MyTypeface';
   font-size: 0.9rem;
-  margin: 0;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 0.02em;
   color: black;
+  background:#00ff00;
+  font-weight: medium;
 }
 
 a {
@@ -31,14 +65,17 @@ a {
   transition: opacity 0.4s ease;
 }
 
-/* INFO BOX — EXACT SAME AS INDEX */
+/* ===================== */
+/* INFO BOX */
+/* ===================== */
+
 .info-box {
   font-family: 'MyTypeface';
   position: fixed;
   top: 20px;
   left: 20px;
-  width: 300px;
-  font-size: 1.2rem;
+  width: min(300px, 80vw);
+  font-size: clamp(0.9rem, 1.6vw, 1.2rem);
   line-height: 1.1;
   z-index: 2;
   text-transform: uppercase;
@@ -57,35 +94,76 @@ a {
   opacity: 1;
 }
 
-/* ABOUT CONTENT — MATCHING DESCRIPTION STYLE */
+/* ===================== */
+/* ABOUT TEXT */
+/* ===================== */
+
 .about-content {
   position: fixed;
-  top: 140px;
+  bottom: 20px;
   left: 20px;
-  width: 360px;
-  font-size: 0.85rem;
+  width: min(520px, 90vw);
+  font-size: clamp(0.7rem, 0.9vw, 0.9rem);
   line-height: 1.2;
-  text-transform: none; /* important */
   font-weight: 100;
 }
 
-.about-content a {
+.about-content p {
+  margin: 0 0 14px 0;
+}
+
+.contact {
+  margin-top: 20px;
+}
+
+.contact a {
   opacity: 1;
 }
+
+/* ===================== */
+/* MOBILE */
+/* ===================== */
+
+@media (max-width: 700px) {
+
+  .about-content {
+    top: 120px;
+    width: calc(100vw - 40px);
+    font-size: clamp(0.75rem, 2vw, 0.9rem);
+  }
+
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="info-box">
-    <span class="name">Nazar Veliasiuk</span><br>
-    <a href="index.html?skipIntro=true">work</a>
+  <span class="name">Nazar Veliasiuk</span><br>
+  <a href="index.html?skipIntro=true">work</a>
 </div>
 
 <div class="about-content">
-    +31 6 23 677 020<br>
-    <a href="mailto:velnazar@icloud.com">velnazar@icloud.com</a><br>
-    <a href="https://www.instagram.com/follownazar/" target="_blank">instagram</a>
+
+<p>
+Nazar Veliasiuk (2003) is a designer and visual artist based in the Netherlands, currently studying at ArtEZ University of the Arts in Arnhem. His work spans editorial design, photography, moving image, and performance.
+</p>
+
+<p>
+His work develops through an experimental approach, combining striking, saturated imagery with critical research. His visual language contrasts raw, confrontational imagery with sleek graphic aesthetics.
+</p>
+
+<p>
+Recently, his practice has examined how identity and sexuality are constructed and performed through digital media. He investigates cultural topics such as corporate power structures, aesthetic norms, and sexual taboos.
+</p>
+
+<div class="contact">
++31 6 23 677 020<br>
+<a href="mailto:velnazar@icloud.com">velnazar@icloud.com</a><br>
+<a href="https://www.instagram.com/follownazar/" target="_blank">instagram</a>
+</div>
+
 </div>
 
 </body>
