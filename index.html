@@ -80,7 +80,37 @@ a {
   transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.name { font-weight: bold; }
+.name {
+  font-weight: bold;
+  will-change: background-position;
+  transform: translateZ(0);
+}
+
+.name.rainbow-shimmer {
+  background: linear-gradient(
+    90deg,
+    red,
+    orange,
+    yellow,
+    green,
+    cyan,
+    blue,
+    violet,
+    red
+  );
+
+  background-size: 300% 100%;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: rainbowMove 5s linear;
+}
+
+@keyframes rainbowMove {
+  from { background-position: 0% 0; }
+  to   { background-position: 100% 0; }
+}
 
 .info-box a {
   font-weight: bold;
@@ -187,20 +217,13 @@ video {
   position: absolute;
   top: -140px;
   width: 45px;
-  opacity: 0;
-  animation:
-    fall linear forwards,
-    fadeIn 1.2s ease forwards;
-}
-
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 0.85; }
+  opacity: 1;
+  animation: fall linear forwards;
 }
 
 @keyframes fall {
   0% { transform: translate3d(0,-40px,0) rotate(0deg); }
-  100% { transform: translate3d(0,110vh,0) rotate(360deg); }
+  100% { transform: translate3d(0,130vh,0) rotate(360deg); }
 }
 
 body.intro-active .info-box,
@@ -535,25 +558,6 @@ function selectProject(index){
   }
 }
 
-/* IMAGE HOVER */
-for(let i=0;i<slides.length;i++){
-
-  slides[i].addEventListener("mouseenter", () => {
-    if (isLocked) return;
-    activateProject(i);
-  });
-
-  slides[i].addEventListener("mouseleave", () => {
-    if (isLocked) return;
-
-    clearAllMiniSlides();
-    stopAllVideos();
-    isHovering = false;
-    targetSpeed = fastSpeed;
-  });
-
-}
-
 /* PROJECT NAME EVENTS */
 document.querySelectorAll(".bottom-projects a").forEach(link=>{
 
@@ -611,7 +615,6 @@ slideshowLoop();
 var nameElem = document.querySelector(".name");
 var snowContainer = document.getElementById("rainbowSnow");
 var snowInterval = null;
-var snowTimeout = null;
 
 function createRainbow(){
   var img = document.createElement("img");
@@ -620,7 +623,7 @@ function createRainbow(){
   img.style.left = (Math.random() * 100) + "vw";
 
   var duration = 6 + Math.random() * 6;
-  img.style.animationDuration = duration + "s, 1.2s";
+  img.style.animationDuration = duration + "s";
 
   snowContainer.appendChild(img);
 
@@ -633,28 +636,53 @@ if (nameElem) {
 
   nameElem.addEventListener("mouseenter", function(){
 
-    document.body.classList.add("rainbow-active");
-
-    if (snowTimeout) clearTimeout(snowTimeout);
     if (snowInterval) clearInterval(snowInterval);
 
-    snowTimeout = setTimeout(function(){
-      snowInterval = setInterval(createRainbow, 180);
-    }, 800);
+    snowInterval = setInterval(createRainbow, 180);
+
   });
 
   nameElem.addEventListener("mouseleave", function(){
 
-    document.body.classList.remove("rainbow-active");
+    if (snowInterval) {
+      clearInterval(snowInterval);
+      snowInterval = null;
+    }
 
-    if (snowTimeout) clearTimeout(snowTimeout);
-    if (snowInterval) clearInterval(snowInterval);
-
-    snowTimeout = null;
-    snowInterval = null;
   });
 
 }
+
+/* ========================= */
+/* NAME RAINBOW SHIMMER */
+/* ========================= */
+
+function shimmerName(){
+
+  if(!nameElem) return;
+
+  nameElem.classList.add("rainbow-shimmer");
+
+  setTimeout(function(){
+    nameElem.classList.remove("rainbow-shimmer");
+  }, 5000);
+
+}
+
+function randomShimmerLoop(){
+
+  var delay = 18000 + Math.random() * 6000;
+
+  setTimeout(function(){
+    if(!snowInterval){
+      shimmerName();
+    }
+    randomShimmerLoop();
+  }, delay);
+
+}
+
+randomShimmerLoop();
 
 /* ========================= */
 /* INTRO (IMAGE ONLY START) */
