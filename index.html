@@ -46,6 +46,12 @@
   font-weight: bold;
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: 'MyTypeface';
   font-size: 0.9rem;
@@ -215,59 +221,284 @@ body.intro-active .image-description {
   pointer-events: none;
 }
 
+/* SMALL COMPUTER WINDOW */
+
+/* SMALL / MID DESKTOP + TABLET */
+
+/* SMALL / MID DESKTOP + TABLET */
+
+@media (max-width: 1100px) and (min-width: 701px) {
+
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .info-box,
+  .bottom-projects,
+  .image-description {
+    position: static;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    transform: none;
+    width: 100%;
+    max-width: none;
+  }
+
+  .info-box {
+    order: 1;
+    margin-bottom: 18px;
+    font-size: clamp(0.9rem, 1.6vw, 1.2rem);
+    line-height: 1.1;
+  }
+
+  .container-wrapper {
+    order: 2;
+    position: sticky;
+    top: 18px;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    margin-bottom: 18px;
+    z-index: 1;
+  }
+
+  .container {
+    position: relative;
+    width: 100%;
+    height: min(42vh, 420px);
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    max-height: min(42vh, 420px);
+  }
+
+  .bottom-projects {
+    order: 3;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    column-gap: 14px;
+    row-gap: 2px;
+    margin-bottom: 14px;
+    padding-right: 0;
+    width: 100%;
+    max-width: none;
+    line-height: 1.1;
+    z-index: 5;
+  }
+
+  .bottom-projects a {
+    display: block;
+    font-size: clamp(0.7rem, 1.2vw, 1.2rem);
+    font-weight: bold;
+    opacity: 0.25;
+    transition: opacity 0.4s ease;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: unset;
+    margin-bottom: 0;
+  }
+
+  .image-description {
+    order: 4;
+    text-align: left;
+    font-size: clamp(0.65rem, 0.9vw, 0.9rem);
+    line-height: 1.1;
+    width: 100%;
+  }
+
+  .container-wrapper,
+  .container,
+  .thing,
+  .thing.active,
+  .container-wrapper img,
+  .container-wrapper video {
+    pointer-events: none !important;
+  }
+
+  .bottom-projects,
+  .bottom-projects a,
+  .info-box,
+  .image-description {
+    position: relative;
+    z-index: 5;
+  }
+}
+
+/* MOVE IMAGE EARLIER WHEN HEIGHT GETS TIGHT */
+
+@media (max-width: 1100px) and (min-width: 701px) and (max-height: 820px) {
+
+  .container-wrapper {
+    position: static;
+    top: auto;
+    margin-bottom: 18px;
+  }
+
+  .container {
+    height: min(38vh, 360px);
+  }
+
+  img,
+  video {
+    max-height: min(38vh, 360px);
+  }
+}
+
 /* MOBILE LAYOUT */
 
 @media (max-width: 700px) {
 
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  body {
+    display: block;
+    padding: 15px;
+    box-sizing: border-box;
+  }
+
+  .info-box,
+  .bottom-projects,
+  .image-description {
+    position: static;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    transform: none;
+    width: 100%;
+    max-width: none;
+  }
+
   .info-box {
-    top: 15px;
-    left: 15px;
-    width: calc(100vw - 30px);
+    margin-bottom: 18px;
     font-size: clamp(0.8rem, 3.2vw, 1rem);
     line-height: 1.05;
   }
 
   .container-wrapper {
-    top: 40%;
-    width: 92vw;
+    position: sticky;
+    top: 15px;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    margin-bottom: 18px;
+    z-index: 1;
   }
 
   .container {
+    position: relative;
+    width: 100%;
     height: 48vh;
   }
 
   img,
   video {
-    max-height: 48vh;
     max-width: 100%;
+    max-height: 48vh;
   }
 
   .bottom-projects {
-    left: 15px;
-    bottom: 15px;
-    width: calc(100vw - 30px);
-    max-width: none;
-    gap: 1px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    column-gap: 10px;
+    row-gap: 1px;
+    margin-bottom: 14px;
+    padding-right: 0;
+    max-height: none;
+    overflow: visible;
+    line-height: 1.1;
+    z-index: 5;
   }
 
   .bottom-projects a {
+    display: block;
     font-size: clamp(0.65rem, 2.8vw, 0.82rem);
+    font-weight: bold;
+    opacity: 0.25;
+    transition: opacity 0.4s ease;
+    cursor: pointer;
     line-height: 1.05;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: visible;
+    text-overflow: unset;
+    margin-bottom: 0;
   }
 
   .image-description {
-    left: 15px;
-    bottom: 120px;
-    transform: none;
-    width: calc(100vw - 30px);
     text-align: left;
     font-size: clamp(0.65rem, 2.6vw, 0.82rem);
     line-height: 1.15;
+    width: 100%;
   }
 
+  .container-wrapper,
+  .container,
+  .thing,
+  .thing.active,
+  .container-wrapper img,
+  .container-wrapper video {
+    pointer-events: none !important;
+  }
+
+  .bottom-projects,
+  .bottom-projects a,
+  .info-box,
+  .image-description {
+    position: relative;
+    z-index: 5;
+  }
+}
+
+/* MOVE IMAGE EARLIER ON SHORT MOBILE HEIGHTS */
+
+@media (max-width: 700px) and (max-height: 760px) {
+
+  .container-wrapper {
+    position: static;
+    top: auto;
+    margin-bottom: 18px;
+  }
+
+  .container {
+    height: min(42vh, 320px);
+  }
+
+  img,
+  video {
+    max-height: min(42vh, 320px);
+  }
 }
 
 .intro-active,
@@ -325,8 +556,6 @@ body.intro-active .image-description {
   </div>
 </div>
 
-<div class="image-description" id="desc"></div>
-
 <div class="bottom-projects">
   <a data-index="0">Nazar is, 2025</a>
   <a data-index="1">My name is Kitty, 2025</a>
@@ -345,17 +574,14 @@ body.intro-active .image-description {
   <a data-index="14">Broken habits, 2025</a>
 </div>
 
+<div class="image-description" id="desc"></div>
+
 <div class="rainbow-snow-container" id="rainbowSnow"></div>
 
 <script>
 var slides = document.getElementsByClassName("thing");
 var desc = document.getElementById("desc");
 var projectLinks = document.querySelectorAll(".bottom-projects a");
-
-var nazarisVideo = document.getElementById("nazarisVideo");
-var bananaCultVideo = document.getElementById("bananaCultVideo");
-var firstSlideImg = slides[0].querySelector("img");
-var bananaSlideImg = slides[12].querySelector("img");
 
 var fastSpeed = 1200;
 var slowSpeed = 1200;
@@ -445,6 +671,9 @@ function clearAllMiniSlides() {
 }
 
 function stopAllVideos() {
+  var nazarisVideo = document.getElementById("nazarisVideo");
+  var bananaCultVideo = document.getElementById("bananaCultVideo");
+
   if (nazarisVideo) {
     nazarisVideo.pause();
     nazarisVideo.currentTime = 0;
@@ -457,49 +686,47 @@ function stopAllVideos() {
     bananaCultVideo.style.display = "none";
   }
 
-  if (firstSlideImg) {
-    firstSlideImg.style.display = "";
-  }
+  var firstImg = slides[0].querySelector("img");
+  if (firstImg) firstImg.style.display = "";
 
-  if (bananaSlideImg) {
-    bananaSlideImg.style.display = "";
-  }
+  var bananaImg = slides[12].querySelector("img");
+  if (bananaImg) bananaImg.style.display = "";
 }
 
 function playNazarisVideo() {
-  if (!nazarisVideo || !slides[0]) return;
+  var video = document.getElementById("nazarisVideo");
+  var firstSlide = slides[0];
+  if (!video || !firstSlide) return;
 
-  if (firstSlideImg) {
-    firstSlideImg.style.display = "none";
-  }
+  var firstImg = firstSlide.querySelector("img");
+  if (firstImg) firstImg.style.display = "none";
 
-  nazarisVideo.style.display = "block";
-  nazarisVideo.currentTime = 0;
-  nazarisVideo.muted = false;
-  nazarisVideo.volume = 1;
+  video.style.display = "block";
+  video.currentTime = 0;
+  video.muted = false;
+  video.volume = 1;
 
-  var playPromise = nazarisVideo.play();
+  var playPromise = video.play();
   if (playPromise && typeof playPromise.catch === "function") {
     playPromise.catch(function(){});
   }
 }
 
 function playBananaVideo() {
-  if (!bananaCultVideo || !slides[12]) return;
+  var video = document.getElementById("bananaCultVideo");
+  var slide = slides[12];
+  if (!video || !slide) return;
 
-  if (bananaSlideImg) {
-    bananaSlideImg.style.display = "none";
-  }
+  var img = slide.querySelector("img");
+  if (img) img.style.display = "none";
 
-  bananaCultVideo.style.display = "block";
-  bananaCultVideo.currentTime = 0;
-  bananaCultVideo.muted = false;
-  bananaCultVideo.volume = 1;
+  video.style.display = "block";
+  video.currentTime = 0;
+  video.muted = false;
+  video.volume = 1;
 
-  var playPromise = bananaCultVideo.play();
-  if (playPromise && typeof playPromise.catch === "function") {
-    playPromise.catch(function(){});
-  }
+  var p = video.play();
+  if (p && p.catch) p.catch(function(){});
 }
 
 /* MINI SLIDESHOW */
@@ -532,6 +759,7 @@ function activateProject(index) {
 
   isHovering = true;
   targetSpeed = slowSpeed;
+
   desc.style.opacity = "0";
 
   var slide = slides[index];
@@ -550,19 +778,21 @@ function selectProject(index) {
 
   showSlide(index);
   updateBottomHighlight(index);
-  stopAllVideos();
 
   var slide = slides[index];
   var img = slide.querySelector("img");
 
+  stopAllVideos();
+
   if (index === 0) {
-    if (firstSlideImg) {
-      firstSlideImg.style.display = "none";
-    }
+    var firstImg = slides[0].querySelector("img");
+    if (firstImg) firstImg.style.display = "none";
     playNazarisVideo();
-  } else if (index === 12) {
+  }
+  else if (index === 12) {
     playBananaVideo();
-  } else {
+  }
+  else {
     startMiniSlideshow(slide, img, index);
   }
 
@@ -572,6 +802,7 @@ function selectProject(index) {
 
 /* PROJECT NAME EVENTS */
 projectLinks.forEach(function(link) {
+
   link.addEventListener("mouseenter", function() {
     if (isLocked) return;
     activateProject(parseInt(this.dataset.index, 10));
@@ -588,8 +819,10 @@ projectLinks.forEach(function(link) {
 
   link.addEventListener("click", function(e) {
     e.preventDefault();
-    selectProject(parseInt(this.dataset.index, 10));
+    var idx = parseInt(this.dataset.index, 10);
+    selectProject(idx);
   });
+
 });
 
 /* MAIN LOOP */
@@ -610,9 +843,7 @@ function slideshowLoop() {
 for (var i = 0; i < slides.length; i++) {
   var img = slides[i].querySelector("img");
   var set = projectImagesByIndex[i];
-  if (img && set && set[0]) {
-    img.src = safeSrc(set[0]);
-  }
+  if (img && set && set[0]) img.src = safeSrc(set[0]);
 }
 
 showSlide(0);
@@ -620,6 +851,7 @@ updateBottomHighlight(0);
 slideshowLoop();
 
 /* EMOJI RAIN */
+
 var nameElem = document.querySelector(".name");
 var snowContainer = document.getElementById("rainbowSnow");
 var snowInterval = null;
@@ -641,10 +873,9 @@ function createRainbow() {
 }
 
 if (nameElem) {
+
   nameElem.addEventListener("mouseenter", function() {
-    if (snowInterval) {
-      clearInterval(snowInterval);
-    }
+    if (snowInterval) clearInterval(snowInterval);
     snowInterval = setInterval(createRainbow, 180);
   });
 
@@ -654,11 +885,14 @@ if (nameElem) {
       snowInterval = null;
     }
   });
+
 }
 
 /* INTRO (IMAGE ONLY START) */
+
 var urlParams = new URLSearchParams(window.location.search);
 var skipIntro = urlParams.get("skipIntro") === "true";
+
 var introActive = true;
 
 if (skipIntro) {
