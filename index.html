@@ -82,34 +82,12 @@ a {
 
 .name {
   font-weight: bold;
-  will-change: background-position;
-  transform: translateZ(0);
+  color: #999;
+  transition: color 0.3s ease;
 }
 
-.name.rainbow-shimmer {
-  background: linear-gradient(
-    90deg,
-    red,
-    orange,
-    yellow,
-    green,
-    cyan,
-    blue,
-    violet,
-    red
-  );
-
-  background-size: 300% 100%;
-
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  animation: rainbowMove 5s linear;
-}
-
-@keyframes rainbowMove {
-  from { background-position: 0% 0; }
-  to   { background-position: 100% 0; }
+.name:hover {
+  color: black;
 }
 
 .info-box a {
@@ -117,7 +95,9 @@ a {
   opacity: 0.25;
 }
 
-.info-box a:hover { opacity: 1; }
+.info-box a:hover {
+  opacity: 1;
+}
 
 .bottom-projects {
   font-family: 'MyTypeface';
@@ -125,14 +105,14 @@ a {
   bottom: 20px;
   left: 20px;
   width: clamp(150px, 18vw, 220px);
+  max-width: 200px;
   display: flex;
   flex-direction: column;
+  gap: 2px;
   line-height: 1.1;
   z-index: 2;
   text-transform: uppercase;
   transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
-  gap: 2px;
-  max-width: 200px;
 }
 
 .bottom-projects a {
@@ -145,7 +125,9 @@ a {
   white-space: nowrap;
 }
 
-.bottom-projects a.active-project { opacity: 1; }
+.bottom-projects a.active-project {
+  opacity: 1;
+}
 
 .image-description {
   position: fixed;
@@ -199,8 +181,8 @@ a {
 
 img,
 video {
-  max-height: min(65vh, 650px);
   max-width: 100%;
+  max-height: min(65vh, 650px);
   object-fit: contain;
 }
 
@@ -222,8 +204,8 @@ video {
 }
 
 @keyframes fall {
-  0% { transform: translate3d(0,-40px,0) rotate(0deg); }
-  100% { transform: translate3d(0,130vh,0) rotate(360deg); }
+  0% { transform: translate3d(0, -40px, 0) rotate(0deg); }
+  100% { transform: translate3d(0, 130vh, 0) rotate(360deg); }
 }
 
 body.intro-active .info-box,
@@ -233,36 +215,64 @@ body.intro-active .image-description {
   pointer-events: none;
 }
 
-/* ===================== */
 /* MOBILE LAYOUT */
-/* ===================== */
 
 @media (max-width: 700px) {
 
-  .bottom-projects {
-    bottom: 15px;
+  .info-box {
+    top: 15px;
     left: 15px;
+    width: calc(100vw - 30px);
+    font-size: clamp(0.8rem, 3.2vw, 1rem);
+    line-height: 1.05;
   }
 
-  .bottom-projects a {
-    font-size: clamp(0.65rem, 2vw, 0.85rem);
+  .container-wrapper {
+    top: 40%;
+    width: 92vw;
   }
 
-  .image-description {
-    bottom: 15px;
-    left: 160px;
-    transform: none;
-    width: calc(100vw - 175px);
-    text-align: left;
-    font-size: clamp(0.65rem, 2vw, 0.85rem);
-    line-height: 1.2;
+  .container {
+    height: 48vh;
   }
 
   img,
   video {
-    max-height: min(55vh, 500px);
+    max-height: 48vh;
+    max-width: 100%;
   }
 
+  .bottom-projects {
+    left: 15px;
+    bottom: 15px;
+    width: calc(100vw - 30px);
+    max-width: none;
+    gap: 1px;
+  }
+
+  .bottom-projects a {
+    font-size: clamp(0.65rem, 2.8vw, 0.82rem);
+    line-height: 1.05;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .image-description {
+    left: 15px;
+    bottom: 120px;
+    transform: none;
+    width: calc(100vw - 30px);
+    text-align: left;
+    font-size: clamp(0.65rem, 2.6vw, 0.82rem);
+    line-height: 1.15;
+  }
+
+}
+
+.intro-active,
+.intro-active * {
+  cursor: pointer !important;
 }
 </style>
 </head>
@@ -298,19 +308,19 @@ body.intro-active .image-description {
     <div class="thing"><img src="" alt=""></div>
     <div class="thing"><img src="" alt=""></div>
 
-<!-- Slide 12: Banana Cult pt.1 -->
-<div class="thing">
-  <img src="" alt="">
-  <video id="bananaCultVideo" loop playsinline style="display:none;">
-    <source src="bananacult.mp4" type="video/mp4">
-  </video>
-</div>
+    <!-- Slide 12: Banana Cult pt.1 -->
+    <div class="thing">
+      <img src="" alt="">
+      <video id="bananaCultVideo" loop playsinline style="display:none;">
+        <source src="bananacult.mp4" type="video/mp4">
+      </video>
+    </div>
 
-<!-- Slide 13: Banana Cult pt.2 -->
-<div class="thing"><img src="" alt=""></div>
+    <!-- Slide 13: Banana Cult pt.2 -->
+    <div class="thing"><img src="" alt=""></div>
 
-<!-- Slide 14: Broken habits -->
-<div class="thing"><img src="" alt=""></div>
+    <!-- Slide 14: Broken habits -->
+    <div class="thing"><img src="" alt=""></div>
 
   </div>
 </div>
@@ -330,9 +340,9 @@ body.intro-active .image-description {
   <a data-index="9">Kimish, 2025</a>
   <a data-index="10">Calendar, 2024</a>
   <a data-index="11">Kitchen pleasures, 2024</a>
-<a data-index="12">Banana Cult pt.1, 2024</a>
-<a data-index="13">Banana Cult pt.2, 2024</a>
-<a data-index="14">Broken habits, 2025</a>
+  <a data-index="12">Banana Cult pt.1, 2024</a>
+  <a data-index="13">Banana Cult pt.2, 2024</a>
+  <a data-index="14">Broken habits, 2025</a>
 </div>
 
 <div class="rainbow-snow-container" id="rainbowSnow"></div>
@@ -340,6 +350,12 @@ body.intro-active .image-description {
 <script>
 var slides = document.getElementsByClassName("thing");
 var desc = document.getElementById("desc");
+var projectLinks = document.querySelectorAll(".bottom-projects a");
+
+var nazarisVideo = document.getElementById("nazarisVideo");
+var bananaCultVideo = document.getElementById("bananaCultVideo");
+var firstSlideImg = slides[0].querySelector("img");
+var bananaSlideImg = slides[12].querySelector("img");
 
 var fastSpeed = 1200;
 var slowSpeed = 1200;
@@ -361,7 +377,9 @@ function safeSrc(path) {
 
 function rangeWebp(prefix, start, end) {
   var arr = [];
-  for (var i = start; i <= end; i++) arr.push(prefix + i + ".webp");
+  for (var i = start; i <= end; i++) {
+    arr.push(prefix + i + ".webp");
+  }
   return arr;
 }
 
@@ -379,11 +397,8 @@ var projectImagesByIndex = [
   rangeWebp("./Kimish", 1, 14),
   rangeWebp("./calendar", 1, 6),
   rangeWebp("./kitchenpleasures", 1, 7),
-
   ["./bananacult.webp"],
-
   rangeWebp("./bananacultimg", 1, 54),
-
   rangeWebp("./brokenhabits", 1, 20)
 ];
 
@@ -406,85 +421,89 @@ var descriptions = [
   "A publication presenting five experiments that challenge behavioural norms. Learned habits and unconscious visual cues strongly affect human actions. By disrupting familiar spatial elements and sensory perceptions, I prompted myself to find new ways to navigate. The experiments take the form of spatial interventions and performances."
 ];
 
-function showSlide(index){
-  for(var i=0;i<slides.length;i++) slides[i].classList.remove("active");
+function showSlide(index) {
+  for (var i = 0; i < slides.length; i++) {
+    slides[i].classList.remove("active");
+  }
   slides[index].classList.add("active");
 }
 
-function updateBottomHighlight(index){
-  document.querySelectorAll(".bottom-projects a")
-    .forEach(l => l.classList.remove("active-project"));
-  document.querySelectorAll(".bottom-projects a")[index]
-    .classList.add("active-project");
+function updateBottomHighlight(index) {
+  projectLinks.forEach(function(link) {
+    link.classList.remove("active-project");
+  });
+  projectLinks[index].classList.add("active-project");
 }
 
-function clearAllMiniSlides(){
-  for(var i=0;i<slides.length;i++){
-    if (slides[i].miniInterval) clearInterval(slides[i].miniInterval);
+function clearAllMiniSlides() {
+  for (var i = 0; i < slides.length; i++) {
+    if (slides[i].miniInterval) {
+      clearInterval(slides[i].miniInterval);
+    }
     slides[i].miniInterval = null;
   }
 }
 
 function stopAllVideos() {
-  var v1 = document.getElementById("nazarisVideo");
-  if (v1){
-    v1.pause();
-    v1.currentTime = 0;
-    v1.style.display = "none";
+  if (nazarisVideo) {
+    nazarisVideo.pause();
+    nazarisVideo.currentTime = 0;
+    nazarisVideo.style.display = "none";
   }
 
-  var v2 = document.getElementById("bananaCultVideo");
-  if (v2){
-    v2.pause();
-    v2.currentTime = 0;
-    v2.style.display = "none";
+  if (bananaCultVideo) {
+    bananaCultVideo.pause();
+    bananaCultVideo.currentTime = 0;
+    bananaCultVideo.style.display = "none";
   }
 
-  var firstImg = slides[0].querySelector("img");
-  if(firstImg) firstImg.style.display = "";
+  if (firstSlideImg) {
+    firstSlideImg.style.display = "";
+  }
 
-  var bananaImg = slides[12].querySelector("img");
-  if(bananaImg) bananaImg.style.display = "";
+  if (bananaSlideImg) {
+    bananaSlideImg.style.display = "";
+  }
 }
 
 function playNazarisVideo() {
-  var video = document.getElementById("nazarisVideo");
-  var firstSlide = slides[0];
-  if (!video || !firstSlide) return;
+  if (!nazarisVideo || !slides[0]) return;
 
-  var firstImg = firstSlide.querySelector("img");
-  if (firstImg) firstImg.style.display = "none";
+  if (firstSlideImg) {
+    firstSlideImg.style.display = "none";
+  }
 
-  video.style.display = "block";
-  video.currentTime = 0;
-  video.muted = false;
-  video.volume = 1;
+  nazarisVideo.style.display = "block";
+  nazarisVideo.currentTime = 0;
+  nazarisVideo.muted = false;
+  nazarisVideo.volume = 1;
 
-  var playPromise = video.play();
+  var playPromise = nazarisVideo.play();
   if (playPromise && typeof playPromise.catch === "function") {
     playPromise.catch(function(){});
   }
 }
 
-function playBananaVideo(){
-  var video = document.getElementById("bananaCultVideo");
-  var slide = slides[12];
-  if(!video || !slide) return;
+function playBananaVideo() {
+  if (!bananaCultVideo || !slides[12]) return;
 
-  var img = slide.querySelector("img");
-  if (img) img.style.display = "none";
+  if (bananaSlideImg) {
+    bananaSlideImg.style.display = "none";
+  }
 
-  video.style.display = "block";
-  video.currentTime = 0;
-  video.muted = false;
-  video.volume = 1;
+  bananaCultVideo.style.display = "block";
+  bananaCultVideo.currentTime = 0;
+  bananaCultVideo.muted = false;
+  bananaCultVideo.volume = 1;
 
-  var p = video.play();
-  if(p && p.catch) p.catch(function(){});
+  var playPromise = bananaCultVideo.play();
+  if (playPromise && typeof playPromise.catch === "function") {
+    playPromise.catch(function(){});
+  }
 }
 
 /* MINI SLIDESHOW */
-function startMiniSlideshow(slide, img, index){
+function startMiniSlideshow(slide, img, index) {
   var imgs = projectImagesByIndex[index];
 
   if (!img || !imgs || imgs.length === 0) return;
@@ -493,7 +512,7 @@ function startMiniSlideshow(slide, img, index){
 
   if (imgs.length > 1) {
     var miniIndex = 0;
-    slide.miniInterval = setInterval(function(){
+    slide.miniInterval = setInterval(function() {
       miniIndex = (miniIndex + 1) % imgs.length;
       img.src = safeSrc(imgs[miniIndex]);
     }, 1200);
@@ -501,8 +520,8 @@ function startMiniSlideshow(slide, img, index){
 }
 
 /* HOVER MODE */
-function activateProject(index){
-  if(!slides[index]) return;
+function activateProject(index) {
+  if (!slides[index]) return;
 
   stopAllVideos();
   clearAllMiniSlides();
@@ -513,7 +532,6 @@ function activateProject(index){
 
   isHovering = true;
   targetSpeed = slowSpeed;
-
   desc.style.opacity = "0";
 
   var slide = slides[index];
@@ -523,7 +541,7 @@ function activateProject(index){
 }
 
 /* LOCK MODE */
-function selectProject(index){
+function selectProject(index) {
   clearAllMiniSlides();
 
   isLocked = true;
@@ -532,42 +550,35 @@ function selectProject(index){
 
   showSlide(index);
   updateBottomHighlight(index);
+  stopAllVideos();
 
   var slide = slides[index];
   var img = slide.querySelector("img");
 
-  stopAllVideos();
-
   if (index === 0) {
-    var firstImg = slides[0].querySelector("img");
-    if(firstImg) firstImg.style.display = "none";
+    if (firstSlideImg) {
+      firstSlideImg.style.display = "none";
+    }
     playNazarisVideo();
-  }
-  else if (index === 12) {
+  } else if (index === 12) {
     playBananaVideo();
-  }
-  else {
+  } else {
     startMiniSlideshow(slide, img, index);
   }
 
-  if (desc.style.opacity === "1") {
-    desc.innerHTML = descriptions[index];
-  } else {
-    desc.innerHTML = descriptions[index];
-    desc.style.opacity = "1";
-  }
+  desc.innerHTML = descriptions[index];
+  desc.style.opacity = "1";
 }
 
 /* PROJECT NAME EVENTS */
-document.querySelectorAll(".bottom-projects a").forEach(link=>{
-
-  link.addEventListener("mouseenter", function(){
-    if(isLocked) return;
+projectLinks.forEach(function(link) {
+  link.addEventListener("mouseenter", function() {
+    if (isLocked) return;
     activateProject(parseInt(this.dataset.index, 10));
   });
 
-  link.addEventListener("mouseleave", function(){
-    if(isLocked) return;
+  link.addEventListener("mouseleave", function() {
+    if (isLocked) return;
     clearAllMiniSlides();
     stopAllVideos();
     desc.style.opacity = "0";
@@ -575,19 +586,17 @@ document.querySelectorAll(".bottom-projects a").forEach(link=>{
     targetSpeed = fastSpeed;
   });
 
-  link.addEventListener("click", function(e){
+  link.addEventListener("click", function(e) {
     e.preventDefault();
-    var idx = parseInt(this.dataset.index, 10);
-    selectProject(idx);
+    selectProject(parseInt(this.dataset.index, 10));
   });
-
 });
 
 /* MAIN LOOP */
-function slideshowLoop(){
+function slideshowLoop() {
   currentSpeed += (targetSpeed - currentSpeed) * easing;
 
-  if (!isLocked && !isHovering){
+  if (!isLocked && !isHovering) {
     stopAllVideos();
     showSlide(currentIndex);
     updateBottomHighlight(currentIndex);
@@ -601,22 +610,21 @@ function slideshowLoop(){
 for (var i = 0; i < slides.length; i++) {
   var img = slides[i].querySelector("img");
   var set = projectImagesByIndex[i];
-  if (img && set && set[0]) img.src = safeSrc(set[0]);
+  if (img && set && set[0]) {
+    img.src = safeSrc(set[0]);
+  }
 }
 
 showSlide(0);
 updateBottomHighlight(0);
 slideshowLoop();
 
-/* ========================= */
 /* EMOJI RAIN */
-/* ========================= */
-
 var nameElem = document.querySelector(".name");
 var snowContainer = document.getElementById("rainbowSnow");
 var snowInterval = null;
 
-function createRainbow(){
+function createRainbow() {
   var img = document.createElement("img");
   img.src = "rainbow_1f308.png";
   img.className = "rainbow-snow";
@@ -627,70 +635,30 @@ function createRainbow(){
 
   snowContainer.appendChild(img);
 
-  setTimeout(function(){
+  setTimeout(function() {
     img.remove();
   }, duration * 1000);
 }
 
 if (nameElem) {
-
-  nameElem.addEventListener("mouseenter", function(){
-
-    if (snowInterval) clearInterval(snowInterval);
-
+  nameElem.addEventListener("mouseenter", function() {
+    if (snowInterval) {
+      clearInterval(snowInterval);
+    }
     snowInterval = setInterval(createRainbow, 180);
-
   });
 
-  nameElem.addEventListener("mouseleave", function(){
-
+  nameElem.addEventListener("mouseleave", function() {
     if (snowInterval) {
       clearInterval(snowInterval);
       snowInterval = null;
     }
-
   });
-
 }
 
-/* ========================= */
-/* NAME RAINBOW SHIMMER */
-/* ========================= */
-
-function shimmerName(){
-
-  if(!nameElem) return;
-
-  nameElem.classList.add("rainbow-shimmer");
-
-  setTimeout(function(){
-    nameElem.classList.remove("rainbow-shimmer");
-  }, 5000);
-
-}
-
-function randomShimmerLoop(){
-
-  var delay = 18000 + Math.random() * 6000;
-
-  setTimeout(function(){
-    if(!snowInterval){
-      shimmerName();
-    }
-    randomShimmerLoop();
-  }, delay);
-
-}
-
-randomShimmerLoop();
-
-/* ========================= */
 /* INTRO (IMAGE ONLY START) */
-/* ========================= */
-
 var urlParams = new URLSearchParams(window.location.search);
 var skipIntro = urlParams.get("skipIntro") === "true";
-
 var introActive = true;
 
 if (skipIntro) {
@@ -699,13 +667,14 @@ if (skipIntro) {
 }
 
 if (introActive) {
-
+  document.documentElement.classList.add("intro-active");
   document.body.classList.add("intro-active");
 
   function endIntro() {
     if (!introActive) return;
 
     introActive = false;
+    document.documentElement.classList.remove("intro-active");
     document.body.classList.remove("intro-active");
 
     document.removeEventListener("click", endIntro);
