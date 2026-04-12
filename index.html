@@ -81,7 +81,7 @@ a {
   width: min(300px, 80vw);
   font-size: clamp(0.9rem, 1.6vw, 1.2rem);
   line-height: 1.1;
-  z-index: 2;
+  z-index: 10;
   text-transform: uppercase;
   transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -116,7 +116,7 @@ a {
   flex-direction: column;
   gap: 2px;
   line-height: 1.1;
-  z-index: 2;
+  z-index: 10;
   text-transform: uppercase;
   transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -144,7 +144,7 @@ a {
   font-size: clamp(0.65rem, 0.9vw, 0.9rem);
   text-align: center;
   transition: opacity 0.4s ease;
-  z-index: 2;
+  z-index: 10;
   color: black;
   font-family: 'MyTypeface';
   font-weight: thin;
@@ -160,7 +160,7 @@ a {
   transform: translate(-50%, -50%);
   width: 90vw;
   max-width: 1200px;
-  z-index: 3;
+  z-index: 1;
 }
 
 .container {
@@ -182,7 +182,15 @@ a {
 
 .thing.active {
   opacity: 1;
-  pointer-events: auto;
+  pointer-events: none;
+}
+
+.container-wrapper,
+.container,
+.thing,
+.container-wrapper img,
+.container-wrapper video {
+  pointer-events: none;
 }
 
 img,
@@ -278,10 +286,7 @@ body.intro-active .image-description {
     transform: none;
     width: 100%;
     max-width: none;
-
-    /* ✨ spacing fix */
     margin-bottom: clamp(18px, 3vh, 32px);
-
     z-index: 1;
   }
 
@@ -305,15 +310,12 @@ body.intro-active .image-description {
     align-items: flex-start;
     column-gap: 14px;
     row-gap: 2px;
-
-    /* ✨ spacing fix */
     margin-bottom: clamp(10px, 1.5vh, 18px);
-
     padding-right: 0;
     width: 100%;
     max-width: none;
     line-height: 1.1;
-    z-index: 5;
+    z-index: 10;
   }
 
   .bottom-projects a {
@@ -331,17 +333,14 @@ body.intro-active .image-description {
 
   .image-description {
     order: 4;
-
-    /* ✨ spacing fix */
     margin-top: clamp(4px, 1vh, 10px);
-
     text-align: left;
     font-size: clamp(0.65rem, 0.9vw, 0.9rem);
     line-height: 1.1;
     width: 100%;
+    z-index: 10;
   }
 
-  /* prevent image blocking clicks */
   .container-wrapper,
   .container,
   .thing,
@@ -356,10 +355,9 @@ body.intro-active .image-description {
   .info-box,
   .image-description {
     position: relative;
-    z-index: 5;
+    z-index: 10;
   }
 }
-
 
 /* MOBILE */
 
@@ -407,10 +405,7 @@ body.intro-active .image-description {
     transform: none;
     width: 100%;
     max-width: none;
-
-    /* ✨ spacing fix */
     margin-bottom: clamp(18px, 3vh, 28px);
-
     z-index: 1;
   }
 
@@ -433,15 +428,12 @@ body.intro-active .image-description {
     align-items: flex-start;
     column-gap: 10px;
     row-gap: 1px;
-
-    /* ✨ spacing fix */
     margin-bottom: clamp(10px, 1.5vh, 16px);
-
     padding-right: 0;
     max-height: none;
     overflow: visible;
     line-height: 1.1;
-    z-index: 5;
+    z-index: 10;
   }
 
   .bottom-projects a {
@@ -459,17 +451,14 @@ body.intro-active .image-description {
   }
 
   .image-description {
-
-    /* ✨ spacing fix */
     margin-top: clamp(4px, 1vh, 10px);
-
     text-align: left;
     font-size: clamp(0.65rem, 2.6vw, 0.82rem);
     line-height: 1.15;
     width: 100%;
+    z-index: 10;
   }
 
-  /* prevent image blocking clicks */
   .container-wrapper,
   .container,
   .thing,
@@ -484,7 +473,7 @@ body.intro-active .image-description {
   .info-box,
   .image-description {
     position: relative;
-    z-index: 5;
+    z-index: 10;
   }
 }
 
@@ -503,64 +492,86 @@ body.intro-active .image-description {
 </div>
 
 <div class="container-wrapper">
-  <div class="container" id="stage">
+ <div class="container" id="stage">
 
-    <!-- Slide 0 -->
-    <div class="thing">
-      <img src="" alt="" class="nazaris-image">
-      <video id="nazarisVideo" loop playsinline style="display:none;">
-        <source src="nazaris.mp4" type="video/mp4">
-      </video>
-    </div>
+  <!-- 0: Kimish -->
+  <div class="thing"><img src="" alt=""></div>
 
-    <!-- Slides 1–11 -->
-    <div class="thing"><img src="" alt=""></div>
-    <div class="thing"><img src="" alt=""></div>
-    <div class="thing"><img src="" alt=""></div>
-    <div class="thing"><img src="" alt=""></div>
-    <div class="thing"><img src="" alt=""></div>
-    <div class="thing"><img src="" alt=""></div>
-    <div class="thing"><img src="" alt=""></div>
-    <div class="thing"><img src="" alt=""></div>
-    <div class="thing"><img src="" alt=""></div>
-    <div class="thing"><img src="" alt=""></div>
-    <div class="thing"><img src="" alt=""></div>
+  <!-- 1: Nazar is -->
+  <div class="thing">
+    <img src="" alt="" class="nazaris-image">
+    <video id="nazarisVideo" loop playsinline style="display:none;">
+      <source src="nazaris.mp4" type="video/mp4">
+    </video>
+  </div>
 
-    <!-- Slide 12: Banana Cult pt.1 -->
-    <div class="thing">
-      <img src="" alt="">
-      <video id="bananaCultVideo" loop playsinline style="display:none;">
-        <source src="bananacult.mp4" type="video/mp4">
-      </video>
-    </div>
+  <!-- 2: Fragments -->
+  <div class="thing"><img src="" alt=""></div>
 
-    <!-- Slide 13: Banana Cult pt.2 -->
-    <div class="thing"><img src="" alt=""></div>
+  <!-- 3: Gem -->
+  <div class="thing"><img src="" alt=""></div>
 
-    <!-- Slide 14: Broken habits -->
-    <div class="thing"><img src="" alt=""></div>
-    <div class="thing"><img src="" alt=""></div>
+  <!-- 4: OASE -->
+  <div class="thing"><img src="" alt=""></div>
 
+  <!-- 5: Gun/Tongue -->
+  <div class="thing"><img src="" alt=""></div>
+
+  <!-- 6: Kitchen Pleasures -->
+  <div class="thing"><img src="" alt=""></div>
+
+  <!-- 7: Calendar -->
+  <div class="thing"><img src="" alt=""></div>
+
+  <!-- 8: Water Reflection -->
+  <div class="thing"><img src="" alt=""></div>
+
+  <!-- 9: Broken habits -->
+  <div class="thing"><img src="" alt=""></div>
+
+  <!-- 10: Protest Sign -->
+  <div class="thing"><img src="" alt=""></div>
+
+  <!-- 11: My name is Kitty -->
+  <div class="thing"><img src="" alt=""></div>
+
+  <!-- 12: CEO -->
+  <div class="thing"><img src="" alt=""></div>
+
+  <!-- 13: !?… -->
+  <div class="thing"><img src="" alt=""></div>
+
+  <!-- 14: Banana Cult pt.1 -->
+  <div class="thing">
+    <img src="" alt="">
+    <video id="bananaCultVideo" loop playsinline style="display:none;">
+      <source src="bananacult.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- 15: Banana Cult pt.2 -->
+  <div class="thing"><img src="" alt=""></div>
+  
   </div>
 </div>
 
 <div class="bottom-projects">
-  <a data-index="0">Nazar is, 2025</a>
-  <a data-index="1">My name is Kitty, 2025</a>
-  <a data-index="2">OASE 88, 2025</a>
-  <a data-index="3">Water Reflection, 2024</a>
-  <a data-index="4">Gun/Tongue, 2024</a>
-  <a data-index="5">Protest Sign, 2025</a>
-  <a data-index="6">Fragments, 2024</a>
-  <a data-index="7">CEO, 2024</a>
-  <a data-index="8">!?…, 2024</a>
-  <a data-index="9">Kimish, 2025</a>
-  <a data-index="10">Calendar, 2024</a>
-  <a data-index="11">Kitchen pleasures, 2024</a>
-  <a data-index="12">Banana Cult pt.1, 2024</a>
-  <a data-index="13">Banana Cult pt.2, 2024</a>
-  <a data-index="14">Broken habits, 2025</a>
-  <a data-index="15">Gem, 2025</a>
+  <a data-index="0">Kimish, 2025</a>
+  <a data-index="1">Nazar is, 2025</a>
+  <a data-index="2">Fragments, 2024</a>
+  <a data-index="3">Gem, 2025</a>
+  <a data-index="4">OASE 88, 2025</a>
+  <a data-index="5">Gun/Tongue, 2024</a>
+  <a data-index="6">Kitchen pleasures, 2024</a>
+  <a data-index="7">Calendar, 2024</a>
+  <a data-index="8">Water Reflection, 2024</a>
+  <a data-index="9">Broken habits, 2025</a>
+  <a data-index="10">Protest Sign, 2025</a>
+  <a data-index="11">My name is Kitty, 2025</a>
+  <a data-index="12">CEO, 2024</a>
+  <a data-index="13">!?…, 2024</a>
+  <a data-index="14">Banana Cult pt.1, 2024</a>
+  <a data-index="15">Banana Cult pt.2, 2024</a>
 </div>
 
 <div class="image-description" id="desc"></div>
@@ -600,22 +611,22 @@ function rangeWebp(prefix, start, end) {
 
 /* IMAGE SETS */
 var projectImagesByIndex = [
-  ["./Nazaris.webp"],
-  rangeWebp("./mynameiskitty", 1, 5),
-  rangeWebp("./oase", 1, 16),
-  rangeWebp("./waterreflection", 1, 7),
-  rangeWebp("./gun-tongue", 1, 9),
-  ["./protestsign.webp"],
-  rangeWebp("./fragments", 1, 9),
-  rangeWebp("./americantech", 1, 5),
-  rangeWebp("./!?...", 1, 15),
-  rangeWebp("./Kimish", 1, 14),
-  rangeWebp("./calendar", 1, 6),
-  rangeWebp("./kitchenpleasures", 1, 7),
-  ["./bananacult.webp"],
-  rangeWebp("./bananacultimg", 1, 54),
-  rangeWebp("./brokenhabits", 1, 20),
-  rangeWebp("./gem", 1, 15)
+  rangeWebp("./Kimish", 1, 14),                 // Kimish
+  ["./Nazaris.webp"],                           // Nazar is
+  rangeWebp("./fragments", 1, 9),               // Fragments
+  rangeWebp("./gem", 1, 15),                    // Gem
+  rangeWebp("./oase", 1, 16),                   // OASE
+  rangeWebp("./gun-tongue", 1, 9),              // Gun/Tongue
+  rangeWebp("./kitchenpleasures", 1, 7),        // Kitchen
+  rangeWebp("./calendar", 1, 6),                // Calendar
+  rangeWebp("./waterreflection", 1, 7),         // Water
+  rangeWebp("./brokenhabits", 1, 20),           // Broken habits
+  ["./protestsign.webp"],                       // Protest
+  rangeWebp("./mynameiskitty", 1, 5),           // Kitty
+  rangeWebp("./americantech", 1, 5),            // CEO
+  rangeWebp("./!?...", 1, 15),                  // !?…
+  ["./bananacult.webp"],                        // Banana pt.1
+  rangeWebp("./bananacultimg", 1, 54)           // Banana pt.2
 ];
 
 /* DESCRIPTIONS */
@@ -636,6 +647,25 @@ var descriptions = [
   "Cavendish banana is grown as a sterile clone, making it seedless but highly vulnerable to Panama disease, a threat to its survival. To preserve this fruit for future generations, I created a religion and invented five rituals centred on the banana, which I documented through video and photographs. To emphasise its greater value and delicacy, I covered the fruit in gold.",
   "A publication presenting five experiments that challenge behavioural norms. Learned habits and unconscious visual cues strongly affect human actions. By disrupting familiar spatial elements and sensory perceptions, I prompted myself to find new ways to navigate. The experiments take the form of spatial interventions and performances.",
   "Gem Book is built from a database of foundation shade names collected during The Pudding’s investigation into bias in beauty product naming. An analysis of 6,816 products found that darker shades were frequently named after everyday substances such as food or drinks, while lighter shades were often named after decorative or precious objects. The book shows how naming practices add value to certain skin tones and reveals the lack of creativity in naming brown, dark, or black makeup items."
+];
+
+var reorderedDescriptions = [
+  descriptions[9],   // Kimish
+  descriptions[0],   // Nazar is
+  descriptions[6],   // Fragments
+  descriptions[15],  // Gem
+  descriptions[2],   // OASE
+  descriptions[4],   // Gun/Tongue
+  descriptions[11],  // Kitchen
+  descriptions[10],  // Calendar
+  descriptions[3],   // Water
+  descriptions[14],  // Broken habits
+  descriptions[5],   // Protest
+  descriptions[1],   // Kitty
+  descriptions[7],   // CEO
+  descriptions[8],   // !?…
+  descriptions[12],  // Banana pt.1
+  descriptions[13]   // Banana pt.2
 ];
 
 function showSlide(index) {
@@ -677,20 +707,20 @@ function stopAllVideos() {
     bananaCultVideo.style.display = "none";
   }
 
-  var firstImg = slides[0].querySelector("img");
-  if (firstImg) firstImg.style.display = "";
+var firstImg = slides[1].querySelector("img");
+if (firstImg) firstImg.style.display = "";
 
-  var bananaImg = slides[12].querySelector("img");
-  if (bananaImg) bananaImg.style.display = "";
+var bananaImg = slides[14].querySelector("img");
+if (bananaImg) bananaImg.style.display = "";
 }
 
 function playNazarisVideo() {
   var video = document.getElementById("nazarisVideo");
-  var firstSlide = slides[0];
-  if (!video || !firstSlide) return;
+  var videoSlide = slides[1];
+  if (!video || !videoSlide) return;
 
-  var firstImg = firstSlide.querySelector("img");
-  if (firstImg) firstImg.style.display = "none";
+  var img = videoSlide.querySelector("img");
+  if (img) img.style.display = "none";
 
   video.style.display = "block";
   video.currentTime = 0;
@@ -705,7 +735,7 @@ function playNazarisVideo() {
 
 function playBananaVideo() {
   var video = document.getElementById("bananaCultVideo");
-  var slide = slides[12];
+  var slide = slides[14];
   if (!video || !slide) return;
 
   var img = slide.querySelector("img");
@@ -775,19 +805,17 @@ function selectProject(index) {
 
   stopAllVideos();
 
-  if (index === 0) {
-    var firstImg = slides[0].querySelector("img");
-    if (firstImg) firstImg.style.display = "none";
+  if (index === 1) {
     playNazarisVideo();
   }
-  else if (index === 12) {
+  else if (index === 14) {
     playBananaVideo();
   }
   else {
     startMiniSlideshow(slide, img, index);
   }
 
-  desc.innerHTML = descriptions[index];
+  desc.innerHTML = reorderedDescriptions[index];
   desc.style.opacity = "1";
 }
 
