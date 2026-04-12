@@ -551,7 +551,7 @@ body.intro-active .image-description {
 
   <!-- 15: Banana Cult pt.2 -->
   <div class="thing"><img src="" alt=""></div>
-  
+
   </div>
 </div>
 
@@ -819,29 +819,32 @@ function selectProject(index) {
   desc.style.opacity = "1";
 }
 
+var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
 /* PROJECT NAME EVENTS */
 projectLinks.forEach(function(link) {
+  var idx = parseInt(link.dataset.index, 10);
 
-  link.addEventListener("mouseenter", function() {
-    if (isLocked) return;
-    activateProject(parseInt(this.dataset.index, 10));
-  });
+  if (canHover) {
+    link.addEventListener("mouseenter", function() {
+      if (isLocked) return;
+      activateProject(idx);
+    });
 
-  link.addEventListener("mouseleave", function() {
-    if (isLocked) return;
-    clearAllMiniSlides();
-    stopAllVideos();
-    desc.style.opacity = "0";
-    isHovering = false;
-    targetSpeed = fastSpeed;
-  });
+    link.addEventListener("mouseleave", function() {
+      if (isLocked) return;
+      clearAllMiniSlides();
+      stopAllVideos();
+      desc.style.opacity = "0";
+      isHovering = false;
+      targetSpeed = fastSpeed;
+    });
+  }
 
   link.addEventListener("click", function(e) {
     e.preventDefault();
-    var idx = parseInt(this.dataset.index, 10);
     selectProject(idx);
   });
-
 });
 
 /* MAIN LOOP */
@@ -930,10 +933,10 @@ if (introActive) {
     document.documentElement.classList.remove("intro-active");
     document.body.classList.remove("intro-active");
 
-    document.removeEventListener("click", endIntro);
+    document.removeEventListener("pointerdown", endIntro);
   }
 
-  document.addEventListener("click", endIntro);
+  document.addEventListener("pointerdown", endIntro);
 }
 </script>
 
