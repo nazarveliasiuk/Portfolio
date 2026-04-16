@@ -88,11 +88,6 @@ a {
 
 .name {
   font-weight: bold;
-  color: #999;
-  transition: color 0.3s ease;
-}
-
-.name:hover {
   color: black;
 }
 
@@ -789,6 +784,10 @@ function activateProject(index) {
   startMiniSlideshow(slide, img, index);
 }
 
+function keepLastWordUp(text) {
+  return text.replace(/(\s+)(\S+)\s*$/, "&nbsp;$2");
+}
+
 /* LOCK MODE */
 function selectProject(index) {
   clearAllMiniSlides();
@@ -815,7 +814,12 @@ function selectProject(index) {
     startMiniSlideshow(slide, img, index);
   }
 
-  desc.innerHTML = reorderedDescriptions[index];
+  // 👇 prevent single last word
+  function keepLastWordUp(text) {
+    return text.replace(/(\s+)(\S+)\s*$/, "&nbsp;$2");
+  }
+
+  desc.innerHTML = keepLastWordUp(reorderedDescriptions[index]);
   desc.style.opacity = "1";
 }
 
