@@ -8,6 +8,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
 <style>
 @font-face {
   font-family: 'MyTypeface';
@@ -191,10 +192,65 @@ a {
   pointer-events: none;
 }
 
+.thing.active img,
+.thing.active video {
+  pointer-events: auto;
+  cursor: default;
+}
+
+.container-wrapper.can-zoom .thing.active img,
+.container-wrapper.can-zoom .thing.active video {
+  cursor: zoom-in;
+}
+
 img,
 video {
   max-width: 100%;
   max-height: min(65vh, 650px);
+  object-fit: contain;
+}
+
+.container-wrapper::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0);
+  pointer-events: none;
+  transition: background 0.25s ease;
+  z-index: -1;
+}
+
+.container-wrapper.is-fullscreen::after {
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.container-wrapper.is-fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  max-width: none;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  transform: none;
+  margin: 0;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.container-wrapper.is-fullscreen .container {
+  width: 100%;
+  height: 100%;
+}
+
+.container-wrapper.is-fullscreen img,
+.container-wrapper.is-fullscreen video {
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
 }
 
@@ -226,14 +282,6 @@ body.intro-active .image-description {
   opacity: 0;
   pointer-events: none;
 }
-
-/* SMALL COMPUTER WINDOW */
-
-/* SMALL / MID DESKTOP + TABLET */
-
-/* SMALL / MID DESKTOP + TABLET */
-
-/* SMALL / MID DESKTOP + TABLET */
 
 /* SMALL COMPUTER WINDOW */
 
@@ -348,12 +396,40 @@ body.intro-active .image-description {
     pointer-events: none !important;
   }
 
+  .thing.active img,
+  .thing.active video {
+    pointer-events: auto !important;
+  }
+
   .bottom-projects,
   .bottom-projects a,
   .info-box,
   .image-description {
     position: relative;
     z-index: 10;
+  }
+
+  .container-wrapper.is-fullscreen {
+    position: fixed !important;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 20px;
+    background: white;
+    z-index: 9998;
+  }
+
+  .container-wrapper.is-fullscreen .container {
+    height: 100%;
+  }
+
+  .container-wrapper.is-fullscreen img,
+  .container-wrapper.is-fullscreen video {
+    max-height: 100%;
   }
 }
 
@@ -466,12 +542,41 @@ body.intro-active .image-description {
     pointer-events: none !important;
   }
 
+  .thing.active img,
+  .thing.active video {
+    pointer-events: auto !important;
+  }
+
   .bottom-projects,
   .bottom-projects a,
   .info-box,
   .image-description {
     position: relative;
     z-index: 10;
+  }
+
+  .container-wrapper.is-fullscreen {
+    position: fixed !important;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 15px;
+    background: white;
+    z-index: 9998;
+  }
+
+  .container-wrapper.is-fullscreen .container {
+    height: 100%;
+  }
+
+  .container-wrapper.is-fullscreen img,
+  .container-wrapper.is-fullscreen video {
+    max-width: 100%;
+    max-height: 100%;
   }
 }
 
@@ -490,65 +595,65 @@ body.intro-active .image-description {
 </div>
 
 <div class="container-wrapper">
- <div class="container" id="stage">
+  <div class="container" id="stage">
 
-  <!-- 0: Kimish -->
-  <div class="thing"><img src="" alt=""></div>
+    <!-- 0: Kimish -->
+    <div class="thing"><img src="" alt=""></div>
 
-  <!-- 1: Nazar is -->
-  <div class="thing">
-    <img src="" alt="" class="nazaris-image">
-    <video id="nazarisVideo" loop playsinline style="display:none;">
-      <source src="nazaris.mp4" type="video/mp4">
-    </video>
-  </div>
+    <!-- 1: Nazar is -->
+    <div class="thing">
+      <img src="" alt="" class="nazaris-image">
+      <video id="nazarisVideo" loop playsinline style="display:none;">
+        <source src="nazaris.mp4" type="video/mp4">
+      </video>
+    </div>
 
-  <!-- 2: Fragments -->
-  <div class="thing"><img src="" alt=""></div>
+    <!-- 2: Fragments -->
+    <div class="thing"><img src="" alt=""></div>
 
-  <!-- 3: Gem -->
-  <div class="thing"><img src="" alt=""></div>
+    <!-- 3: Gem -->
+    <div class="thing"><img src="" alt=""></div>
 
-  <!-- 4: OASE -->
-  <div class="thing"><img src="" alt=""></div>
+    <!-- 4: OASE -->
+    <div class="thing"><img src="" alt=""></div>
 
-  <!-- 5: Gun/Tongue -->
-  <div class="thing"><img src="" alt=""></div>
+    <!-- 5: Gun/Tongue -->
+    <div class="thing"><img src="" alt=""></div>
 
-  <!-- 6: Kitchen Pleasures -->
-  <div class="thing"><img src="" alt=""></div>
+    <!-- 6: Kitchen Pleasures -->
+    <div class="thing"><img src="" alt=""></div>
 
-  <!-- 7: Calendar -->
-  <div class="thing"><img src="" alt=""></div>
+    <!-- 7: Calendar -->
+    <div class="thing"><img src="" alt=""></div>
 
-  <!-- 8: Water Reflection -->
-  <div class="thing"><img src="" alt=""></div>
+    <!-- 8: Water Reflection -->
+    <div class="thing"><img src="" alt=""></div>
 
-  <!-- 9: Broken habits -->
-  <div class="thing"><img src="" alt=""></div>
+    <!-- 9: Broken habits -->
+    <div class="thing"><img src="" alt=""></div>
 
-  <!-- 10: Protest Sign -->
-  <div class="thing"><img src="" alt=""></div>
+    <!-- 10: Protest Sign -->
+    <div class="thing"><img src="" alt=""></div>
 
-  <!-- 11: My name is Kitty -->
-  <div class="thing"><img src="" alt=""></div>
+    <!-- 11: My name is Kitty -->
+    <div class="thing"><img src="" alt=""></div>
 
-  <!-- 12: CEO -->
-  <div class="thing"><img src="" alt=""></div>
+    <!-- 12: CEO -->
+    <div class="thing"><img src="" alt=""></div>
 
-  <!-- 13: !?… -->
-  <div class="thing"><img src="" alt=""></div>
+    <!-- 13: !?… -->
+    <div class="thing"><img src="" alt=""></div>
 
-  <!-- 14: Banana Cult pt.1 -->
-  <div class="thing">
-    <img src="" alt="">
-    <video id="bananaCultVideo" loop playsinline style="display:none;">
-      <source src="bananacult.mp4" type="video/mp4">
-    </video>
-  </div>
+    <!-- 14: Banana Cult pt.1 -->
+    <div class="thing">
+      <img src="" alt="">
+      <video id="bananaCultVideo" loop playsinline style="display:none;">
+        <source src="bananacult.mp4" type="video/mp4">
+      </video>
+    </div>
 
-  <!-- 15: Banana Cult pt.2 -->
-  <div class="thing"><img src="" alt=""></div>
+    <!-- 15: Banana Cult pt.2 -->
+    <div class="thing"><img src="" alt=""></div>
 
   </div>
 </div>
@@ -580,6 +685,7 @@ body.intro-active .image-description {
 var slides = document.getElementsByClassName("thing");
 var desc = document.getElementById("desc");
 var projectLinks = document.querySelectorAll(".bottom-projects a");
+var containerWrapper = document.querySelector(".container-wrapper");
 
 var fastSpeed = 1200;
 var slowSpeed = 1200;
@@ -589,6 +695,7 @@ var easing = 0.03;
 
 var isHovering = false;
 var isLocked = false;
+var isExpanded = false;
 var lockedIndex = 0;
 var currentIndex = 0;
 
@@ -677,7 +784,9 @@ function updateBottomHighlight(index) {
   projectLinks.forEach(function(link) {
     link.classList.remove("active-project");
   });
-  projectLinks[index].classList.add("active-project");
+  if (projectLinks[index]) {
+    projectLinks[index].classList.add("active-project");
+  }
 }
 
 function clearAllMiniSlides() {
@@ -705,11 +814,11 @@ function stopAllVideos() {
     bananaCultVideo.style.display = "none";
   }
 
-var firstImg = slides[1].querySelector("img");
-if (firstImg) firstImg.style.display = "";
+  var firstImg = slides[1].querySelector("img");
+  if (firstImg) firstImg.style.display = "";
 
-var bananaImg = slides[14].querySelector("img");
-if (bananaImg) bananaImg.style.display = "";
+  var bananaImg = slides[14].querySelector("img");
+  if (bananaImg) bananaImg.style.display = "";
 }
 
 function playNazarisVideo() {
@@ -749,17 +858,20 @@ function playBananaVideo() {
 }
 
 /* MINI SLIDESHOW */
-function startMiniSlideshow(slide, img, index) {
+function startMiniSlideshow(slide, img, index, startAt) {
   var imgs = projectImagesByIndex[index];
 
   if (!img || !imgs || imgs.length === 0) return;
 
-  img.src = safeSrc(imgs[0]);
+  var miniIndex = (typeof startAt === "number") ? startAt : 0;
+  slide.currentMiniIndex = miniIndex;
+
+  img.src = safeSrc(imgs[miniIndex]);
 
   if (imgs.length > 1) {
-    var miniIndex = 0;
     slide.miniInterval = setInterval(function() {
       miniIndex = (miniIndex + 1) % imgs.length;
+      slide.currentMiniIndex = miniIndex;
       img.src = safeSrc(imgs[miniIndex]);
     }, 1200);
   }
@@ -768,6 +880,7 @@ function startMiniSlideshow(slide, img, index) {
 /* HOVER MODE */
 function activateProject(index) {
   if (!slides[index]) return;
+  if (isExpanded) return;
 
   stopAllVideos();
   clearAllMiniSlides();
@@ -794,10 +907,13 @@ function keepLastWordUp(text) {
 /* LOCK MODE */
 function selectProject(index) {
   clearAllMiniSlides();
+  closeFullscreenWithoutResume();
 
   isLocked = true;
   lockedIndex = index;
   currentIndex = index;
+
+  containerWrapper.classList.add("can-zoom");
 
   showSlide(index);
   updateBottomHighlight(index);
@@ -807,23 +923,74 @@ function selectProject(index) {
 
   stopAllVideos();
 
-  if (index === 1) {
-    playNazarisVideo();
-  }
-  else if (index === 14) {
-    playBananaVideo();
-  }
-  else {
-    startMiniSlideshow(slide, img, index);
-  }
-
-  // 👇 prevent single last word
-  function keepLastWordUp(text) {
-    return text.replace(/(\s+)(\S+)\s*$/, "&nbsp;$2");
-  }
+if (index === 1) {
+  playNazarisVideo();
+}
+else if (index === 14) {
+  playBananaVideo();
+}
+else {
+  slide.currentMiniIndex = 0;
+  startMiniSlideshow(slide, img, index, slide.currentMiniIndex);
+}
 
   desc.innerHTML = keepLastWordUp(reorderedDescriptions[index]);
   desc.style.opacity = "1";
+}
+
+function resumeLockedProject() {
+  if (!isLocked) return;
+
+  var slide = slides[lockedIndex];
+  var img = slide.querySelector("img");
+
+  clearAllMiniSlides();
+  stopAllVideos();
+
+  if (lockedIndex === 1) {
+    playNazarisVideo();
+  }
+  else if (lockedIndex === 14) {
+    playBananaVideo();
+  }
+  else {
+    var savedIndex = (typeof slide.currentMiniIndex === "number")
+      ? slide.currentMiniIndex
+      : 0;
+
+    startMiniSlideshow(slide, img, lockedIndex, savedIndex);
+  }
+}
+
+/* FULLSCREEN */
+function toggleFullscreen() {
+  if (!isLocked) return;
+  if (!containerWrapper) return;
+
+  if (!isExpanded) {
+    isExpanded = true;
+    clearAllMiniSlides();
+    containerWrapper.classList.add("is-fullscreen");
+    document.body.style.overflow = "hidden";
+  }
+}
+
+function closeFullscreenWithoutResume() {
+  if (!isExpanded || !containerWrapper) return;
+
+  isExpanded = false;
+  containerWrapper.classList.remove("is-fullscreen");
+  document.body.style.overflow = "";
+}
+
+function closeFullscreen() {
+  if (!isExpanded || !containerWrapper) return;
+
+  isExpanded = false;
+  containerWrapper.classList.remove("is-fullscreen");
+  document.body.style.overflow = "";
+
+  resumeLockedProject();
 }
 
 var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -840,6 +1007,7 @@ projectLinks.forEach(function(link) {
 
     link.addEventListener("mouseleave", function() {
       if (isLocked) return;
+      if (isExpanded) return;
       clearAllMiniSlides();
       stopAllVideos();
       desc.style.opacity = "0";
@@ -850,15 +1018,56 @@ projectLinks.forEach(function(link) {
 
   link.addEventListener("click", function(e) {
     e.preventDefault();
+    e.stopPropagation();
     selectProject(idx);
   });
+});
+
+/* CLICK ACTIVE IMAGE / VIDEO TO OPEN/CLOSE FULLSCREEN */
+Array.prototype.forEach.call(slides, function(slide) {
+  var img = slide.querySelector("img");
+  var video = slide.querySelector("video");
+
+  if (img) {
+    img.addEventListener("click", function(e) {
+      if (!slide.classList.contains("active")) return;
+
+      if (!isExpanded) {
+        e.stopPropagation();
+        toggleFullscreen();
+      }
+    });
+  }
+
+  if (video) {
+    video.addEventListener("click", function(e) {
+      if (!slide.classList.contains("active")) return;
+
+      if (!isExpanded) {
+        e.stopPropagation();
+        toggleFullscreen();
+      }
+    });
+  }
+});
+
+document.addEventListener("click", function() {
+  if (isExpanded) {
+    closeFullscreen();
+  }
+});
+
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") {
+    closeFullscreen();
+  }
 });
 
 /* MAIN LOOP */
 function slideshowLoop() {
   currentSpeed += (targetSpeed - currentSpeed) * easing;
 
-  if (!isLocked && !isHovering) {
+  if (!isLocked && !isHovering && !isExpanded) {
     stopAllVideos();
     showSlide(currentIndex);
     updateBottomHighlight(currentIndex);
@@ -902,7 +1111,6 @@ function createRainbow() {
 }
 
 if (nameElem) {
-
   nameElem.addEventListener("mouseenter", function() {
     if (snowInterval) clearInterval(snowInterval);
     snowInterval = setInterval(createRainbow, 180);
@@ -914,7 +1122,6 @@ if (nameElem) {
       snowInterval = null;
     }
   });
-
 }
 
 /* INTRO (IMAGE ONLY START) */
