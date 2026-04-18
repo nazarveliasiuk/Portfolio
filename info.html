@@ -167,15 +167,12 @@ a {
   .info-box {
     order: 1;
     margin-bottom: 18px;
-    font-size: clamp(0.9rem, 1.6vw, 1.2rem);
-    line-height: 1.1;
   }
 
   .center-image {
     order: 2;
     position: sticky;
     top: 18px;
-    left: auto;
     transform: none;
     margin-bottom: clamp(18px, 3vh, 32px);
     width: 100%;
@@ -189,8 +186,6 @@ a {
 
   .about-content {
     order: 3;
-    font-size: clamp(0.65rem, 0.9vw, 0.9rem);
-    line-height: 1.1;
     margin-top: clamp(4px, 1vh, 10px);
   }
 }
@@ -198,14 +193,6 @@ a {
 /* MOBILE */
 
 @media (max-width: 700px) {
-  html,
-  body {
-    height: auto;
-    min-height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-
   body {
     display: block;
     padding: 15px;
@@ -215,25 +202,17 @@ a {
   .info-box,
   .about-content {
     position: static;
-    left: auto;
-    right: auto;
-    top: auto;
-    bottom: auto;
     transform: none;
     width: 100%;
-    max-width: none;
   }
 
   .info-box {
     margin-bottom: 18px;
-    font-size: clamp(0.8rem, 3.2vw, 1rem);
-    line-height: 1.05;
   }
 
   .center-image {
     position: sticky;
     top: 15px;
-    left: auto;
     transform: none;
     width: 100%;
     text-align: center;
@@ -247,13 +226,6 @@ a {
 
   .about-content {
     margin-top: clamp(4px, 1vh, 10px);
-    font-size: clamp(0.65rem, 2.6vw, 0.82rem);
-    line-height: 1.15;
-    width: 100%;
-  }
-
-  .contact {
-    margin-top: 16px;
   }
 }
 
@@ -270,7 +242,6 @@ a {
   position: absolute;
   top: -140px;
   width: 45px;
-  opacity: 1;
   animation: fall linear forwards;
 }
 
@@ -287,13 +258,6 @@ a {
   <span class="name">Nazar Veliasiuk</span><br>
   <a href="index.html?skipIntro=true">work</a>
 </div>
-
-<!-- OPTIONAL CENTER IMAGE -->
-<!--
-<div class="center-image">
-  <img src="nazar1.jpeg" alt="Nazar Veliasiuk">
-</div>
--->
 
 <div class="about-content">
   <p>
