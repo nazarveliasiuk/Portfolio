@@ -224,10 +224,12 @@ a {
     max-width: 70vw;
     max-height: 48vh;
   }
-
+  
   .about-content {
-    margin-top: clamp(4px, 1vh, 10px);
-  }
+  margin: clamp(4px, 2vh, 12px) auto 0 auto;
+  width: min(420px, 90vw);
+  text-align: center; /* 👈 remove this line if you want left-aligned text */
+}
 }
 
 /* EMOJI RAIN */
