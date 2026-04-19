@@ -687,11 +687,12 @@ var desc = document.getElementById("desc");
 var projectLinks = document.querySelectorAll(".bottom-projects a");
 var containerWrapper = document.querySelector(".container-wrapper");
 
-var fastSpeed = 1200;
-var slowSpeed = 1200;
+var fastSpeed = 1800;
+var slowSpeed = 1800;
 var currentSpeed = fastSpeed;
 var targetSpeed = fastSpeed;
 var easing = 0.03;
+var miniSpeed = 1800;
 
 var isHovering = false;
 var isLocked = false;
@@ -714,27 +715,47 @@ function rangeWebp(prefix, start, end) {
   return arr;
 }
 
-/* IMAGE SETS */
-var projectImagesByIndex = [
-  rangeWebp("./Kimish", 1, 14),                 // Kimish
-  ["./Nazaris.webp"],                           // Nazar is
-  rangeWebp("./fragments", 1, 9),               // Fragments
-  rangeWebp("./gem", 1, 15),                    // Gem
-  rangeWebp("./oase", 1, 16),                   // OASE
-  rangeWebp("./gun-tongue", 1, 9),              // Gun/Tongue
-  rangeWebp("./kitchenpleasures", 1, 7),        // Kitchen
-  rangeWebp("./calendar", 1, 6),                // Calendar
-  rangeWebp("./waterreflection", 1, 7),         // Water
-  rangeWebp("./brokenhabits", 1, 20),           // Broken habits
-  ["./protestsign.webp"],                       // Protest
-  rangeWebp("./mynameiskitty", 1, 5),           // Kitty
-  rangeWebp("./americantech", 1, 5),            // CEO
-  rangeWebp("./!?...", 1, 15),                  // !?…
-  ["./bananacult.webp"],                        // Banana pt.1
-  rangeWebp("./bananacultimg", 1, 54)           // Banana pt.2
+/* PROJECT NAMES IN NEW ORDER */
+var projectNamesByIndex = [
+  "Kimish, 2025",
+  "Nazar is, 2025",
+  "Fragments, 2024",
+  "Gem, 2025",
+  "Broken habits, 2025",
+  "Protest Sign, 2025",
+  "OASE 88, 2025",
+  "Calendar, 2024",
+  "Kitchen pleasures, 2024",
+  "Gun/Tongue, 2024",
+  "Water Reflection, 2024",
+  "My name is Kitty, 2025",
+  "CEO, 2024",
+  "!?…, 2024",
+  "Banana Cult pt.1, 2024",
+  "Banana Cult pt.2, 2024"
 ];
 
-/* DESCRIPTIONS */
+/* IMAGE SETS IN NEW ORDER */
+var projectImagesByIndex = [
+  rangeWebp("./Kimish", 1, 14),                 // 0 Kimish
+  ["./Nazaris.webp"],                           // 1 Nazar is
+  rangeWebp("./fragments", 1, 9),               // 2 Fragments
+  rangeWebp("./gem", 1, 15),                    // 3 Gem
+  rangeWebp("./brokenhabits", 1, 20),           // 4 Broken habits
+  ["./protestsign.webp"],                       // 5 Protest Sign
+  rangeWebp("./oase", 1, 16),                   // 6 OASE
+  rangeWebp("./calendar", 1, 6),                // 7 Calendar
+  rangeWebp("./kitchenpleasures", 1, 7),        // 8 Kitchen pleasures
+  rangeWebp("./gun-tongue", 1, 9),              // 9 Gun/Tongue
+  rangeWebp("./waterreflection", 1, 7),         // 10 Water Reflection
+  rangeWebp("./mynameiskitty", 1, 5),           // 11 My name is Kitty
+  rangeWebp("./americantech", 1, 5),            // 12 CEO
+  rangeWebp("./!?...", 1, 15),                  // 13 !?…
+  ["./bananacult.webp"],                        // 14 Banana Cult pt.1
+  rangeWebp("./bananacultimg", 1, 54)           // 15 Banana Cult pt.2
+];
+
+/* ORIGINAL DESCRIPTIONS DATABASE */
 var descriptions = [
   "In my installation, I explore the theme of self-identity and how others’ opinions often shape it. To learn more about myself, I asked my classmates to anonymously share one “positive” and one “negative” thing about me, and I turned their responses into an installation. Through this, I learned that some classmates see me as a stereotypical gay man, that I point out dirt on people’s clothes, that I am a girls’ magnet, etc.",
   "“My name is Kitty” is a series of five photographs documenting a performance in which I present myself as a woman and engage in intimate online conversations with men. For the photos, I built a temporary structure using items from the photo studio, such as tables, chairs, and a stepladder. Screenshots from video chats, printed on A3 paper, were taped to this structure, reflecting the fake, fragile reality created in chat.",
@@ -754,23 +775,24 @@ var descriptions = [
   "Gem Book is built from a database of foundation shade names collected during The Pudding’s investigation into bias in beauty product naming. An analysis of 6,816 products found that darker shades were frequently named after everyday substances such as food or drinks, while lighter shades were often named after decorative or precious objects. The book shows how naming practices add value to certain skin tones and reveals the lack of creativity in naming brown, dark, or black makeup items."
 ];
 
+/* DESCRIPTIONS REORDERED TO MATCH NEW PROJECT ORDER */
 var reorderedDescriptions = [
   descriptions[9],   // Kimish
   descriptions[0],   // Nazar is
   descriptions[6],   // Fragments
   descriptions[15],  // Gem
-  descriptions[2],   // OASE
-  descriptions[4],   // Gun/Tongue
-  descriptions[11],  // Kitchen
-  descriptions[10],  // Calendar
-  descriptions[3],   // Water
   descriptions[14],  // Broken habits
-  descriptions[5],   // Protest
-  descriptions[1],   // Kitty
+  descriptions[5],   // Protest Sign
+  descriptions[2],   // OASE
+  descriptions[10],  // Calendar
+  descriptions[11],  // Kitchen pleasures
+  descriptions[4],   // Gun/Tongue
+  descriptions[3],   // Water Reflection
+  descriptions[1],   // My name is Kitty
   descriptions[7],   // CEO
   descriptions[8],   // !?…
-  descriptions[12],  // Banana pt.1
-  descriptions[13]   // Banana pt.2
+  descriptions[12],  // Banana 1
+  descriptions[13]   // Banana 2
 ];
 
 function showSlide(index) {
@@ -798,19 +820,23 @@ function clearAllMiniSlides() {
   }
 }
 
-function stopAllVideos() {
+function stopAllVideos(resetTime) {
   var nazarisVideo = document.getElementById("nazarisVideo");
   var bananaCultVideo = document.getElementById("bananaCultVideo");
 
   if (nazarisVideo) {
     nazarisVideo.pause();
-    nazarisVideo.currentTime = 0;
+    if (resetTime !== false) {
+      nazarisVideo.currentTime = 0;
+    }
     nazarisVideo.style.display = "none";
   }
 
   if (bananaCultVideo) {
     bananaCultVideo.pause();
-    bananaCultVideo.currentTime = 0;
+    if (resetTime !== false) {
+      bananaCultVideo.currentTime = 0;
+    }
     bananaCultVideo.style.display = "none";
   }
 
@@ -821,7 +847,7 @@ function stopAllVideos() {
   if (bananaImg) bananaImg.style.display = "";
 }
 
-function playNazarisVideo() {
+function playNazarisVideo(restart) {
   var video = document.getElementById("nazarisVideo");
   var videoSlide = slides[1];
   if (!video || !videoSlide) return;
@@ -830,7 +856,11 @@ function playNazarisVideo() {
   if (img) img.style.display = "none";
 
   video.style.display = "block";
-  video.currentTime = 0;
+
+  if (restart !== false) {
+    video.currentTime = 0;
+  }
+
   video.muted = false;
   video.volume = 1;
 
@@ -840,7 +870,7 @@ function playNazarisVideo() {
   }
 }
 
-function playBananaVideo() {
+function playBananaVideo(restart) {
   var video = document.getElementById("bananaCultVideo");
   var slide = slides[14];
   if (!video || !slide) return;
@@ -849,7 +879,11 @@ function playBananaVideo() {
   if (img) img.style.display = "none";
 
   video.style.display = "block";
-  video.currentTime = 0;
+
+  if (restart !== false) {
+    video.currentTime = 0;
+  }
+
   video.muted = false;
   video.volume = 1;
 
@@ -873,7 +907,7 @@ function startMiniSlideshow(slide, img, index, startAt) {
       miniIndex = (miniIndex + 1) % imgs.length;
       slide.currentMiniIndex = miniIndex;
       img.src = safeSrc(imgs[miniIndex]);
-    }, 1200);
+    }, miniSpeed);
   }
 }
 
@@ -882,7 +916,7 @@ function activateProject(index) {
   if (!slides[index]) return;
   if (isExpanded) return;
 
-  stopAllVideos();
+  stopAllVideos(true);
   clearAllMiniSlides();
   currentIndex = index;
 
@@ -921,18 +955,18 @@ function selectProject(index) {
   var slide = slides[index];
   var img = slide.querySelector("img");
 
-  stopAllVideos();
+  stopAllVideos(true);
 
-if (index === 1) {
-  playNazarisVideo();
-}
-else if (index === 14) {
-  playBananaVideo();
-}
-else {
-  slide.currentMiniIndex = 0;
-  startMiniSlideshow(slide, img, index, slide.currentMiniIndex);
-}
+  if (index === 1) {
+    playNazarisVideo(true);
+  }
+  else if (index === 14) {
+    playBananaVideo(true);
+  }
+  else {
+    slide.currentMiniIndex = 0;
+    startMiniSlideshow(slide, img, index, slide.currentMiniIndex);
+  }
 
   desc.innerHTML = keepLastWordUp(reorderedDescriptions[index]);
   desc.style.opacity = "1";
@@ -945,13 +979,13 @@ function resumeLockedProject() {
   var img = slide.querySelector("img");
 
   clearAllMiniSlides();
-  stopAllVideos();
+  stopAllVideos(false);
 
   if (lockedIndex === 1) {
-    playNazarisVideo();
+    playNazarisVideo(false);
   }
   else if (lockedIndex === 14) {
-    playBananaVideo();
+    playBananaVideo(false);
   }
   else {
     var savedIndex = (typeof slide.currentMiniIndex === "number")
@@ -996,8 +1030,17 @@ function closeFullscreen() {
 var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
 /* PROJECT NAME EVENTS */
-projectLinks.forEach(function(link) {
-  var idx = parseInt(link.dataset.index, 10);
+projectLinks.forEach(function(link, idx) {
+  link.dataset.index = idx;
+  if (projectNamesByIndex[idx]) {
+    link.textContent = projectNamesByIndex[idx];
+  }
+
+  link.addEventListener("click", function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    selectProject(idx);
+  });
 
   if (canHover) {
     link.addEventListener("mouseenter", function() {
@@ -1009,18 +1052,12 @@ projectLinks.forEach(function(link) {
       if (isLocked) return;
       if (isExpanded) return;
       clearAllMiniSlides();
-      stopAllVideos();
+      stopAllVideos(true);
       desc.style.opacity = "0";
       isHovering = false;
       targetSpeed = fastSpeed;
     });
   }
-
-  link.addEventListener("click", function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    selectProject(idx);
-  });
 });
 
 /* CLICK ACTIVE IMAGE / VIDEO TO OPEN/CLOSE FULLSCREEN */
@@ -1068,7 +1105,7 @@ function slideshowLoop() {
   currentSpeed += (targetSpeed - currentSpeed) * easing;
 
   if (!isLocked && !isHovering && !isExpanded) {
-    stopAllVideos();
+    stopAllVideos(true);
     showSlide(currentIndex);
     updateBottomHighlight(currentIndex);
     currentIndex = (currentIndex + 1) % slides.length;
@@ -1089,7 +1126,6 @@ updateBottomHighlight(0);
 slideshowLoop();
 
 /* EMOJI RAIN */
-
 var nameElem = document.querySelector(".name");
 var snowContainer = document.getElementById("rainbowSnow");
 var snowInterval = null;
@@ -1125,7 +1161,6 @@ if (nameElem) {
 }
 
 /* INTRO (IMAGE ONLY START) */
-
 var urlParams = new URLSearchParams(window.location.search);
 var skipIntro = urlParams.get("skipIntro") === "true";
 
